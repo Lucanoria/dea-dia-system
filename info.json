@@ -1,0 +1,19 @@
+{
+  "name": "dea-dia-system",
+  "version": "0.0.1",
+  "title": "Dea Dia System",
+  "author": "frontrider",
+  "factorio_version": "2.0",
+  "dependencies": [
+    "base >= 2.0.28",
+    "space-age",
+    "quality_glassware",
+    "PlanetsLib",
+    "Cold_biters",
+    "? Better_Starmap_Background",
+    "? dredgeworks >= 0.7.4",
+    "! fixLargeElectricPole",
+    "! lignumis"
+  ],
+  "description": "A group of planets still orbiting their dead star."
+}
