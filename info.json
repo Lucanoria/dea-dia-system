@@ -1,9 +1,10 @@
 {
   "name": "dea-dia-system",
   "version": "0.0.1",
-  "title": "Dea Dia System",
+  "title": "Dea Dia System (EARLY ALPHA)",
   "author": "frontrider",
   "factorio_version": "2.0",
+  "homepage": "https://discord.com/channels/1309620686347702372/1337554045648502976",
   "dependencies": [
     "base >= 2.0.28",
     "space-age",
@@ -15,5 +16,6 @@
     "! fixLargeElectricPole",
     "! lignumis"
   ],
+  "space_travel_required": true,
   "description": "A group of planets still orbiting their dead star."
 }
