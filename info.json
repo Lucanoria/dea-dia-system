@@ -13,8 +13,7 @@
     "Cold_biters",
     "? Better_Starmap_Background",
     "? dredgeworks >= 0.7.4",
-    "! fixLargeElectricPole",
-    "! lignumis"
+    "! fixLargeElectricPole"
   ],
   "space_travel_required": true,
   "description": "A group of planets still orbiting their dead star."
