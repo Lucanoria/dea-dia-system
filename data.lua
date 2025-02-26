@@ -1,4 +1,3 @@
-
 data:extend {
     {
         type = "recipe-category",
@@ -19,26 +18,60 @@ data:extend {
     {
         type = "recipe-category",
         name = "hydroponics"
+    },{
+        type = "recipe-category",
+        name="heating-or-metallurgy"
+    },
+    {
+        type = "item-subgroup",
+        name = "slimeweed",
+        group = "bioprocessing",
+        order = "dle[slimeweed]",
+    },
+    {
+        type = "item-subgroup",
+        name = "soil-processing",
+        group = "bioprocessing",
+        order = "dlea[soil-processing]",
+    }
+    , {
+    type = "item-subgroup",
+    name = "cold-biters",
+    group = "bioprocessing",
+    order = "dlec[cold-biters]",
+},
+    {
+        type = "item-subgroup",
+        name = "gas-giant",
+        group = "space",
+        order = "z[gas-giant]"
     }
 }
 
 require("prototype.entity.entity")
 require("prototype.equipment")
-require("prototype.starsystem")
+require("prototype.planet.planet")
 require("prototype.science")
 require("prototype.extras.extras")
-require("prototype.soil")
-require("prototype.fossil")
+require("prototype.content.content")
 require("prototype.tiles")
-require("prototype.proserpina")
-require("prototype.lemures")
-require("prototype.slimeweed")
 require("prototype.recipes")
 require("prototype.resources.resources")
-require("prototype.thermodynamics")
 require("prototype.technology")
 
 local gleba = data.raw.planet["gleba"]
 local vulcanus = data.raw.planet["vulcanus"]
 local fulgora = data.raw.planet["fulgora"]
 local aquilo = data.raw.planet["aquilo"]
+
+-- remove the space solar panel unlock from the rocket.
+local tech = data.raw.technology["rocket-silo"]
+if tech and tech.effects then
+    for key, value in ipairs(tech.effects) do
+        if value.type == "unlock-recipe" then
+            if value.recipe == "space-solar-panel" then
+                table.remove(tech.effects,key)
+            end
+        end
+    end
+end

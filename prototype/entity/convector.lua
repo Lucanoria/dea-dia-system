@@ -2,30 +2,50 @@ local working_visualisations = {
     {
         always_draw = true,
         animation = {
-            filename = "__dea-dia-system__/graphics/entity/convector/convector-hr-animation-1.png",
+            stripes = {
+                {
+                    filename = "__dea-dia-system__/graphics/entity/convector/convector-hr-animation-1.png",
+                    width_in_frames = 8,
+                    height_in_frames = 8
+                },
+                {
+                    filename = "__dea-dia-system__/graphics/entity/convector/convector-hr-animation-2.png",
+                    width_in_frames = 8,
+                    height_in_frames = 2
+                }
+            },
             priority = "high",
             width = 2880 / 8,
             height = 2800 / 8,
-            frame_count = 60,
-            line_length = 8,
+            frame_count = 8 * 8 + 8 * 2,
             animation_speed = 1,
             scale = 0.5,
-            run_mode = "forward-then-backward",
+            run_mode = "forward",
             flags = { "no-scale" }
         },
     },
     {
         always_draw = true,
         animation = {
-            filename = "__dea-dia-system__/graphics/entity/convector/convector-hr-animation-emission-1.png",
+            stripes = {
+                {
+                    filename = "__dea-dia-system__/graphics/entity/convector/convector-hr-animation-emission-1.png",
+                    width_in_frames = 8,
+                    height_in_frames = 8
+                },
+                {
+                    filename = "__dea-dia-system__/graphics/entity/convector/convector-hr-animation-emission-2.png",
+                    width_in_frames = 8,
+                    height_in_frames = 2
+                }
+            },
             priority = "high",
             width = 2880 / 8,
             height = 2800 / 8,
-            frame_count = 60,
-            line_length = 8,
+            frame_count = 8 * 8 + 8 * 2,
             animation_speed = 1,
             scale = 0.5,
-            run_mode = "forward-then-backward",
+            run_mode = "forward",
             draw_as_glow = true,
             flags = { "no-scale" }
         },
@@ -43,16 +63,7 @@ local working_visualisations = {
             scale = 0.5,
             draw_as_shadow = true,
         },
-    },
-    {
-        fadeout = true,
-        constant_speed = true,
-        light = {
-            intensity = 0.65,
-            size = 10,
-            color = { r = 1, g = 1, b = 0.75 },
-        },
-    },
+    }
 }
 
 data:extend {
@@ -66,6 +77,7 @@ data:extend {
         flags = { "placeable-neutral", "placeable-player", "player-creation" },
         minable = { mining_time = 0.5, results = { { type = "item", name = "prosephina-convector", amount = 1 } } },
         max_health = 300,
+        forced_symetry = "vertical",
         resistances = {
             { type = "physical", percent = 50 },
             { type = "fire",     percent = 100 },
@@ -91,7 +103,7 @@ data:extend {
         perceived_performance = { minimum = 0.25, performance_to_activity_rate = 20.0, maximum = 5 },
         off_when_no_fluid_recipe = true,
         crafting_categories = {
-            "heating", "heating-or-chemistry","bending", "heating-or-assembling","electronics-with-fluid"
+            "heating", "heating-or-chemistry", "bending", "heating-or-assembling", "electronics-with-fluid","heating-or-metallurgy"
         },
         scale_entity_info_icon = true,
         impact_category = data.raw["assembling-machine"]["electromagnetic-plant"].impact_category,
@@ -105,9 +117,10 @@ data:extend {
             }
         },
         icon_draw_specification = { scale = 1.75, shift = { 0, -0.3 } },
-        energy_usage = "10MW",
+        energy_usage = "300kW",
         collision_mask = { layers = { ["item"] = true, ["object"] = true, ["player"] = true } },
         graphics_set = {
+            idle_animation = working_visualisations[1].animation,
             working_visualisations = working_visualisations
         }
     }, {
@@ -117,6 +130,8 @@ data:extend {
     icon = "__dea-dia-system__/graphics/icon/convector-icon.png",
     icon_size = 64,
     place_result = "prosephina-convector",
+    subgroup = "production-machine",
+    order = "d[convector]",
     stack_size = 50,
     scale = 0.5,
 }, {
@@ -125,7 +140,7 @@ data:extend {
     enabled = false,
     energy_required = 10,
     ingredients = {
-        { type = "item", name = "rubber",           amount = 5 },
+        { type = "item", name = "rubber",               amount = 5 },
         { type = "item", name = "electric-engine-unit", amount = 5 },
         { type = "item", name = "electronic-circuit",   amount = 3 },
     },
@@ -133,11 +148,9 @@ data:extend {
     results = {
         { type = "item", name = "prosephina-convector", amount = 1 },
     }
-}, {
-    type = "technology",
-    name = "prosephina-convector",
+}, {type = "technology",lignumis_skip_science_packs=true,    name = "prosephina-convector",
     prerequisites = {
-        "insulation-science-pack"
+        "insulation-science-pack", "slimeweed-material-processing"
     },
     icon = "__dea-dia-system__/graphics/icon/convector-tech-icon.png",
     icon_size = 256,

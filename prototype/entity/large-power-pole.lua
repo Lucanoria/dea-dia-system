@@ -96,6 +96,8 @@ data:extend {
         icon = large_power_pole.icon,
         icon_size = 64,
         place_result = large_power_pole.name,
+        subgroup = "energy-pipe-distribution",
+        order="z[large-electric-pole]",
         stack_size = 50,
         scale = 0.5,
     },
@@ -118,8 +120,7 @@ data:extend {
         }
     },
     {
-        type = "technology",
-        name = large_power_pole.name,
+        type = "technology",lignumis_skip_science_packs=true,        name = large_power_pole.name,
         icon = "__dea-dia-system__/graphics/icon/large-electric-pole-tech-icon.png",
         icon_size = 256,
         unit = {

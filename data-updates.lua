@@ -24,6 +24,7 @@ add_crafting_category_if_other_category_exists("chemistry", "heating-or-chemistr
 add_crafting_category_if_other_category_exists("crafting-with-fluid", "heating-or-assembling")
 add_crafting_category_if_other_category_exists("advanced-crafting", "heating-or-assembling")
 add_crafting_category_if_other_category_exists("basic-crafting", "bending")
+add_crafting_category_if_other_category_exists("metallurgy", "heating-or-metallurgy")
 
 -- give the convector some unusual recipes.
 data.raw["recipe"]["electric-engine-unit"].category = "heating-or-assembling"
@@ -48,6 +49,13 @@ table.insert(data.raw["technology"]["plastic-bar-productivity"].effects, {
     change = 0.1
 })
 
+
+table.insert(data.raw["technology"]["plastic-bar-productivity"].effects, {
+    recipe = "fluorine-plastic",
+    type = "change-recipe-productivity",
+    change = 0.1
+})
+
 table.insert(data.raw["technology"]["rocket-fuel-productivity"].effects, {
     recipe = "gel-rocket-fuel",
     type = "change-recipe-productivity",
@@ -59,34 +67,29 @@ table.insert(data.raw["technology"]["rocket-fuel-productivity"].effects, {
     change = 0.1
 })
 
-local recipes = data.raw["recipe"]
-print("adding sulfur recipes to productivity")
-for key, value in pairs(recipes) do
-    print(value.name)
-    if (value.category ~= "parameters") then
-        local next = next(value.results)
-        if next then
-            if value.results[1].name == "sulfur" then
-                print("added " .. value.name)
-                table.insert(data.raw["technology"]["sulfur-productivity"].effects, {
-                    recipe = value.name,
-                    type = "change-recipe-productivity",
-                    change = 0.1
-                })
-            end
-        end
-    end
-end
+
+table.insert(data.raw["technology"]["rocket-fuel-productivity"].effects, {
+    recipe = "gas-rocket-fuel",
+    type = "change-recipe-productivity",
+    change = 0.1
+})
 
 
-table.insert(data.raw.item.landfill.place_as_tile.tile_condition, "primal-sea")
---table.insert(data.raw.item["space-platform-foundation"].place_as_tile.tile_condition, "dae-dia-winds")
+
+local landfill_tile_condition = data.raw.item["landfill"].place_as_tile.tile_condition
+-- local space_platform_tile_condition = data.raw.item["space-platform-foundation"].place_as_tile.tile_condition
+
+table.insert(landfill_tile_condition,#landfill_tile_condition+1, "primal-sea")
+-- table.insert(space_platform_tile_condition,#space_platform_tile_condition+1, "dae-dia-surface")
 
 
--- update the equipment grid of the mech armor to fit the custom equ
-local mech_armor = data.raw["armor"]["mech-armor"]
-mech_armor.equipment_grid = "mech-equipment-grid"
+table.insert(data.raw["technology"]["promethium-science-pack"].prerequisites, "thermodynamic-science-pack")
+table.insert(data.raw["technology"]["promethium-science-pack"].prerequisites, "planet-discovery-dea-dia")
 
 
-table.insert(data.raw["technology"]["promethium-science-pack"].prerequisites,"insulation-science-pack")
-table.insert(data.raw["technology"]["promethium-science-pack"].prerequisites,"thermodynamic-science-pack")
+-- alter cold biters subgroups, so they show up on bio processing now
+data.raw["item"]["cb_alien_cold_artifact"].subgroup = "cold-biters"
+data.raw["recipe"]["cb-clean-gland"].subgroup = "cold-biters"
+data.raw["recipe"]["cb-cold-extract"].subgroup = "cold-biters"
+data.raw["recipe"]["cb-artifact-to-oil"].subgroup = "cold-biters"
+

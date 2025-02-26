@@ -1,0 +1,1 @@
+--- lightning insulation equipment

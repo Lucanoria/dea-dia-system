@@ -1,4 +1,105 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.8.0
+Date: 2025-02-18
+  Changes:
+    - removed references to unused aerospace science technology.
+    - added a recipe to make cheaper landfil out of soil.
+    - localization fixes
+    - removed most decoratives from prosephina to work around the destruction (making vanilla decoratives/entities unusable) left behind by alien biomes...
+---------------------------------------------------------------------------------------------------
+Version: 0.7.1
+Date: 2025-02-18
+  Changes:
+    - removed unused aerospace science technology.
+---------------------------------------------------------------------------------------------------
+Version: 0.7.0
+Date: 2025-02-18
+  Changes:
+    - localization fixes
+    - using lignumus flag "lignumis_skip_science_packs" on all exclusive technologies.
+    - added spidertron patrols as a dependency, needed for dea-dia logistics
+    - removed some infinite productivity technologies
+    - marked alien biomes as incompatible because it is giving me too many false bug reports.
+---------------------------------------------------------------------------------------------------
+Version: 0.6.0
+Date: 2025-02-18
+  Changes:
+    - adding fixes to cold biter compatibility.
+---------------------------------------------------------------------------------------------------
+Version: 0.5.0
+Date: 2025-02-18
+  Changes:
+    - adding fixes to cold biter compatibility.
+---------------------------------------------------------------------------------------------------
+Version: 0.4.0
+Date: 2025-02-18
+  Changes:
+    - removed a dependency that was never meant to go out.
+    - changed frost biters lemures overrides.
+---------------------------------------------------------------------------------------------------
+Version: 0.3.0
+Date: 2025-02-18
+  Changes:
+    - added compatibility with redrawn space connections.
+    - dea dia surface finalized
+    - lex's aircraft is a requirement, used for dea dia's logistics
+    - spidertron patrols is a requirement, used for dea dia's logistics
+    - gas mining platforms for dea dia have been implemented
+    - SA atomic tank is now a tech for lemures
+    - moved armor equipment to lemures
+    - thruster equipment added to dea dia
+    - lex's aircraft needs magnesium to craft.
+    - new science pack can be crafted on dae-dia.
+    - fixed a bug caused by a cerys update.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.0
+Date: 2025-02-17
+  Changes:
+    - added a technology to discover the whole system
+    - fixed missing space location localizations
+    - small tweaks on prosephina decoratives
+    - electric pole and assemblers are now in the correct subgroup
+    - sorted slimeweed recipes
+    - sorted lemures lava processing recipes (into vulcanus's group)
+    - sorted soil processing recipes into their own group
+    - sorted magnesium as a raw material.
+    - greenhouse is now grouped with the biochamber and other agricultural machines.
+    - depends on the bioprocessing tab to reduce clutter
+    - alien frost artifact is moved to the bioprocessing tab
+    - space platform transitions have been added to lemures and prosephina
+    - asteroids now spawn above lemures and prosephina
+    - added music to lemures and prosephina
+    - possible fix for https://github.com/Frontrider/dea-dia-system/issues/1
+    - re-added transport belt stacking research, fixes https://github.com/Frontrider/dea-dia-system/issues/2
+---------------------------------------------------------------------------------------------------
+Version: 0.1.0
+Date: 2025-02-15
+  Changes:
+    - greenhouse, convector and mechanical forge can be crafted by hand
+    - greenhouse, convector and mechanical forge craft faster
+    - greenhouse, convector and mechanical forge can be flipped
+    - water cleaning uses less power
+    - carbon from fibers uses less power
+    - rich soil has a translation
+    - lowered the energy consumption of the greenhouse
+    - grass now generates on prosephina
+    - increased the length of the dae-dia vanilla system space connection
+    - added heating towers to prosephina's unlock technology
+    - removed vulcanus craters from prosephina
+    - convector depends on slimeweed chemistry
+    - lowered slimeweed processing energy usage
+    - adjusted greenhouse, convector and mechanical forge energy costs.
+    - increased soil sifting stone and wood yield.
+    - lowered leeching slimeweed output
+    - moved fiber carbon recipe to a different technology
+    - increased soil leeching ratios (4x input 4x output)
+    - lowered rubber energy cost
+    - removed methane, and replaced it with petroleum gas in all recipes
+    - possible fix for slimy gel not showing up properly on tank uis
+    - adjusted natrocarbonatite processing energy cost
+    - added a pseudo asteroid ring to the gas giant
+---------------------------------------------------------------------------------------------------
 Version: 0.0.1
 Date: 2025-02-12
   Changes:

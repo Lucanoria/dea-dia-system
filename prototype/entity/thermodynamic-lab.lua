@@ -5,6 +5,7 @@ data.raw.quality["rare"].science_pack_drain_multiplier = 0.8
 data.raw.quality["epic"].science_pack_drain_multiplier = 0.7
 data.raw.quality["legendary"].science_pack_drain_multiplier = 0.5
 lab.uses_quality_drain_modifier = true
+lab.researching_speed = 2
 
 lab.allowed_effects = { "consumption", "speed", "productivity", "pollution" }
 
@@ -107,26 +108,25 @@ data:extend {
         icon = "__dea-dia-system__/graphics/icon/thermodynamics-lab.png",
         icon_size = 64,
         place_result = "thermodynamics-lab",
+        subgroup = "production-machine",
         stack_size = 50,
+        order ="z[z-thermodynamics-lab]",
         scale = 0.5,
     }, {
     type = "recipe",
     name = "thermodynamics-lab",
     enabled = false,
-    energy_required = 10,
     ingredients = {
         { type = "item", name = "magnesium-plate",  amount = 5 },
         { type = "item", name = "electric-furnace", amount = 2 },
         { type = "item", name = "lab",              amount = 3 },
         { type = "item", name = "processing-unit",  amount = 3 },
     },
-    category = "basic-crafting",
     results = {
         { type = "item", name = "thermodynamics-lab", amount = 1 },
     }
 }, {
-    type = "technology",
-    name = "thermodynamics-lab",
+    type = "technology",lignumis_skip_science_packs=true,    name = "thermodynamics-lab",
     prerequisites = {
         "thermodynamic-science-pack"
     },

@@ -1,9 +1,10 @@
 {
   "name": "dea-dia-system",
-  "version": "0.0.1",
-  "title": "Dea Dia System (EARLY ALPHA)",
+  "version": "0.8.0",
+  "title": "○🌐Dea Dia System (ALPHA)",
   "author": "frontrider",
   "factorio_version": "2.0",
+  "source": "https://github.com/Frontrider/dea-dia-system",
   "homepage": "https://discord.com/channels/1309620686347702372/1337554045648502976",
   "dependencies": [
     "base >= 2.0.28",
@@ -11,10 +12,14 @@
     "quality_glassware",
     "PlanetsLib",
     "Cold_biters",
+    "bioprocessing-tab",
+    "lex-aircraft",
+    "SA-AtomicTank",
+    "SpidertronPatrols",
     "? Better_Starmap_Background",
     "? dredgeworks >= 0.7.4",
     "! fixLargeElectricPole"
   ],
   "space_travel_required": true,
-  "description": "A group of planets still orbiting their dead star."
+  "description": "○🌐A group of planets still orbiting their dead star."
 }

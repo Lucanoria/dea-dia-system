@@ -1,8 +1,7 @@
 data:extend {
 
   {
-    type = "technology",
-    name = "stack-inserter-from-gel",
+    type = "technology",lignumis_skip_science_packs=true,    name = "stack-inserter-from-gel",
     icons = {
       {
         icon = "__dea-dia-system__/graphics/icon/slimeweed-processing.png",
@@ -57,8 +56,7 @@ data:extend {
   results = { { type = "item", name = "stack-inserter", amount = 1 } }
 },
   {
-    type = "technology",
-    name = "gel-inserter-capacity-bonus",
+    type = "technology",lignumis_skip_science_packs=true,    name = "gel-inserter-capacity-bonus",
     localised_name = { "technology-name.inserter-capacity-bonus" },
     localised_description = { "technology-description.inserter-capacity-bonus" },
     icons = util.technology_icon_constant_stack_size("__base__/graphics/technology/inserter-capacity.png"),
@@ -88,8 +86,7 @@ data:extend {
     upgrade = true
   },
   {
-    type = "technology",
-    name = "carbon-fiber-from-gel",
+    type = "technology",lignumis_skip_science_packs=true,    name = "carbon-fiber-from-gel",
     icons = { {
       icon = "__dea-dia-system__/graphics/icon/slimeweed-processing.png",
       icon_size = 256
@@ -125,6 +122,7 @@ data:extend {
   }, {
   type = "recipe",
   name = "carbon-fiber-from-gel",
+  subgroup="slimeweed",
   icons = {
     {
       icon = "__dea-dia-system__/graphics/icon/slimeweed-processing.png",
@@ -140,7 +138,7 @@ data:extend {
   ingredients =
   {
     { type = "item",  name = "fiber",   amount = 20 },
-    { type = "fluid", name = "methane", amount = 400 }
+    { type = "fluid", name = "petroleum-gas", amount = 400 }
   },
   results = { { type = "item", name = "carbon-fiber", amount = 2 } }
 }

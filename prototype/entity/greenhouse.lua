@@ -2,30 +2,50 @@ local working_visualisations = {
     {
         always_draw = true,
         animation = {
-            filename = "__dea-dia-system__/graphics/entity/greenhouse/greenhouse-hr-animation-2.png",
+            stripes={
+                {
+                    filename = "__dea-dia-system__/graphics/entity/greenhouse/greenhouse-hr-animation-1.png",
+                    width_in_frames = 8,
+                    height_in_frames = 8
+                },
+                {
+                    filename = "__dea-dia-system__/graphics/entity/greenhouse/greenhouse-hr-animation-2.png",
+                    width_in_frames = 8,
+                    height_in_frames = 8
+                }
+            },
             priority = "high",
             width = 2720 / 8,
             height = 2840 / 8,
-            frame_count = 60,
-            line_length = 8,
+            frame_count = 8*8+8*8,
             animation_speed = 1,
             scale = 0.5,
-            run_mode = "forward-then-backward",
+            run_mode = "forward",
             flags = { "no-scale" }
         },
     },
     {
         always_draw = true,
         animation = {
-            filename = "__dea-dia-system__/graphics/entity/greenhouse/greenhouse-hr-emission-2.png",
+            stripes={
+                {
+                    filename = "__dea-dia-system__/graphics/entity/greenhouse/greenhouse-hr-emission-1.png",
+                    width_in_frames = 8,
+                    height_in_frames = 8
+                },
+                {
+                    filename = "__dea-dia-system__/graphics/entity/greenhouse/greenhouse-hr-emission-2.png",
+                    width_in_frames = 8,
+                    height_in_frames = 8
+                }
+            },
             priority = "high",
             width = 2720 / 8,
             height = 2840 / 8,
-            frame_count = 60,
-            line_length = 8,
+            frame_count = 8*8+8*8,
             animation_speed = 1,
             scale = 0.5,
-            run_mode = "forward-then-backward",
+            run_mode = "forward",
             draw_as_light = true,
             flags = { "no-scale" }
         },
@@ -73,12 +93,13 @@ data:extend {
             { type = "impact",   percent = 80 },
         },
         dying_explosion = "big-explosion",
-        heating_energy = "30kW",
+        heating_energy = "100kW",
         module_slots = 5,
-        allowed_effects = { "consumption", "speed", "productivity", "pollution", "quality" },
+        allowed_effects = { "consumption", "productivity", "pollution", "quality" },
         collision_box = { { -2.4, -2.4 }, { 2.4, 2.4 } },
         selection_box = { { -2.5, -2.5 }, { 2.5, 2.5 } },
         effect_receiver = {},
+        forced_symetry= "vertical",
         fluid_boxes = {
             {
                 production_type = "input",
@@ -107,9 +128,10 @@ data:extend {
             }
         },
         icon_draw_specification = { scale = 1.75, shift = { 0, -0.3 } },
-        energy_usage = "1MW",
+        energy_usage = "600W",
         collision_mask = { layers = { ["item"] = true, ["object"] = true, ["player"] = true } },
         graphics_set = {
+            idle_animation = working_visualisations[1].animation,
             working_visualisations = working_visualisations,
             frozen_patch = {
                 filename = "__dea-dia-system__/graphics/entity/greenhouse/greenhouse-frozen.png",
@@ -127,19 +149,19 @@ data:extend {
     icon = "__dea-dia-system__/graphics/icon/greenhouse-icon.png",
     icon_size = 64,
     place_result = "prosephina-greenhouse",
+    subgroup = "agriculture",
+    order = "d[greenhouse]",
     stack_size = 50,
     scale = 0.5,
 }, {
     type = "recipe",
     name = "prosephina-greenhouse",
     enabled = false,
-    energy_required = 5,
     ingredients = {
         { type = "item", name = "iron-plate",         amount = 5 },
         { type = "item", name = "rich-soil",          amount = 10 },
         { type = "item", name = "electronic-circuit", amount = 3 },
     },
-    category = "basic-crafting",
     results = {
         { type = "item", name = "prosephina-greenhouse", amount = 1 },
     }
@@ -147,7 +169,7 @@ data:extend {
     type = "recipe",
     name = "prosephina-water-cleaning",
     enabled = false,
-    energy_required = 5,
+    energy_required = 1,
     ingredients = {
         { type = "fluid", name = "mineral-water", amount = 400 }
     },
@@ -157,8 +179,7 @@ data:extend {
     }
 
 }, {
-    type = "technology",
-    name = "prosephina-greenhouse",
+    type = "technology",lignumis_skip_science_packs=true,    name = "prosephina-greenhouse",
     research_trigger = {
         type = "mine-entity",
         entity = "rich-soil"

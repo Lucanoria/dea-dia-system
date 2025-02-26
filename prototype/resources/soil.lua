@@ -16,6 +16,7 @@ local soil_ore = {
     icon_size = 64,
     icon_mipmaps = 3,
     name = soil_name,
+    
     icon = "__dea-dia-system__/graphics/icon/rich-soil.png",
     flags = { "placeable-neutral" },
     order = "a-b-a",

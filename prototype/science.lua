@@ -1,4 +1,5 @@
 local meld = require("meld")
+local science_model = "sphere_hemi"
 
 
 local science_pack = {
@@ -7,6 +8,7 @@ local science_pack = {
     stack_size = 200,
     durability = 1,
     weight = 1000,
+    endgame_technology = true,
     order = "sda[insulation-science-pack-pack]",
     subgroup = "science-pack",
 }
@@ -27,7 +29,7 @@ local flask = quality_glassware.request_flask(
     science_pack.name,
     {
         -- Prefer a round flask with blue liquid inside
-        { model = "sphere_tubed", variant = "liquid_green" },
+        { model = science_model,  variant = "liquid_green" },
         -- If that's taken use the first flask shape found with blue liquid that's available.
         { variant = "liquid_lime" },
     }
@@ -38,15 +40,14 @@ local thermodynamic_flask = quality_glassware.request_flask(
     thermodynamic_science_pack.name,
     {
         -- Prefer a round flask with blue liquid inside
-        { model = "sphere_tubed",   variant = "liquid_red" },
+        { model = science_model,    variant = "liquid_red" },
         -- If that's taken use the first flask shape found with blue liquid that's available.
         { variant = "liquid_orange" },
     }
 )
 
 local technology = {
-    type = "technology",
-    name = science_pack.name,
+    type = "technology",lignumis_skip_science_packs=true,    name = science_pack.name,
     research_trigger = {
         type = "craft-fluid",
         fluid = "slimy-gel",
@@ -68,10 +69,9 @@ local technology = {
 }
 
 local thermodynamic_technology = {
-    type = "technology",
-    name = thermodynamic_science_pack.name,
+    type = "technology",lignumis_skip_science_packs=true,    name = thermodynamic_science_pack.name,
     prerequisites = {
-        "natrocarbonatite-processing","fossil-processing"
+        "natrocarbonatite-processing", "fossil-processing"
     },
     research_trigger = {
         type = "craft-item",
@@ -90,22 +90,10 @@ meld(technology, quality_glassware.technology_graphics_for(flask, meld))
 meld(thermodynamic_technology, quality_glassware.technology_graphics_for(thermodynamic_flask, meld))
 
 science_pack.icons = {
-    quality_glassware.item_graphics_for(flask),
-    {
-        icon = "__core__/graphics/add-icon-white.png",
-        icon_size = 32,
-        shift = { 8, 8 },
-        scale = 0.25,
-    }
+    quality_glassware.item_graphics_for(flask)
 }
 thermodynamic_science_pack.icons = {
-    quality_glassware.item_graphics_for(thermodynamic_flask),
-    {
-        icon = "__core__/graphics/add-icon-white.png",
-        icon_size = 32,
-        shift = { 8, 8 },
-        scale = 0.25,
-    }
+    quality_glassware.item_graphics_for(thermodynamic_flask)
 }
 data:extend({
     {
@@ -138,9 +126,9 @@ data:extend({
             }
         },
         ingredients = {
-            { type = "item", name = "lava-cake",    amount = 3 },
-            { type = "fluid", name = "water",          amount = 100 },
-            { type = "item", name = "magnesium-plate", amount = 2 }
+            { type = "item",  name = "lava-cake",       amount = 3 },
+            { type = "fluid", name = "water",           amount = 100 },
+            { type = "item",  name = "magnesium-plate", amount = 2 }
         },
         results =
         {
@@ -149,6 +137,59 @@ data:extend({
     },
     science_pack, technology, thermodynamic_technology, thermodynamic_science_pack })
 
+
+-- create a new science pack for the asteroid field.
+local science_pack = {
+    type = "tool",
+    name = "aerospace-science-pack",
+    stack_size = 200,
+    durability = 1,
+    weight = 1000,
+    order = "wsb[aerospace-science-pack]",
+    subgroup = "science-pack",
+}
+
+local flask = quality_glassware.request_flask(
+    science_pack.name,
+    {
+        { model = science_model,    variant = "liquid_pink" },
+        { variant = "liquid_yellow" },
+    }
+)
+
+science_pack.icons = {
+    quality_glassware.item_graphics_for(flask)
+}
+data:extend {
+    science_pack, {
+    type = "recipe",
+    name = "aerospace-science-pack",
+    enabled = false,
+    energy_required = 11,
+    category="crafting-with-fluid",
+    surface_conditions = {
+        {
+            property = "magnetic-field",
+            min = 99
+        }, {
+        property = "pressure",
+        min = 1800
+    }
+    },
+    ingredients = {
+        { type = "fluid", name = "ammonia",               amount = 100 },
+        { type = "item",  name = "magnesium-alloy-plate", amount = 2 },
+        { type = "item",  name = "electric-engine-unit",  amount = 3 },
+        { type = "item",  name = "low-density-structure", amount = 1 },
+    },
+    results = {
+        { type = "item", name = "aerospace-science-pack", amount = 1 },
+    },
+}
+}
+
+
 local lab_inputs = data.raw.lab.lab.inputs
 lab_inputs[#lab_inputs + 1] = "insulation-science-pack"
-lab_inputs[#lab_inputs + 1] = thermodynamic_science_pack.name
+lab_inputs[#lab_inputs + 1] = "thermodynamic-science-pack"
+lab_inputs[#lab_inputs + 1] = "aerospace-science-pack"

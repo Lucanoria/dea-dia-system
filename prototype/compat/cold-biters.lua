@@ -22,3 +22,11 @@ for key, value in pairs(insulation_technologies) do
         table.insert(data.raw["technology"][value].unit.ingredients, { "thermodynamic-science-pack", 1 })    
     end
 end
+
+-- updating autoplace controls
+local nauvis=data.raw.planet.nauvis
+nauvis.map_gen_settings.autoplace_controls["frost_enemy_base"] = nil
+
+local aquilo = data.raw.planet.aquilo
+aquilo.pollutant_type = nil
+aquilo.map_gen_settings.autoplace_controls["frost_enemy_base"] = nil

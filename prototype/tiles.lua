@@ -1,7 +1,4 @@
-local tile_trigger_effects = require("__space-age__.prototypes.tile.tile-trigger-effects")
-local tile_pollution = require("__space-age__/prototypes/tile/tile-pollution-values")
-local tile_collision_masks = require("__base__/prototypes/tile/tile-collision-masks")
-local tile_sounds = require("__space-age__/prototypes/tile/tile-sounds")
+local resource_autoplace = require("resource-autoplace")
 
 local tile_graphics = require("__base__/prototypes/tile/tile-graphics")
 local tile_spritesheet_layout = tile_graphics.tile_spritesheet_layout
@@ -87,27 +84,21 @@ sea_tile.variants.transition = transition_masks()
 sea_tile.transitions = table.deepcopy(data.raw.tile["water"].transitions)
 sea_tile.transitions_between_transitions = table.deepcopy(data.raw.tile["water"].transitions_between_transitions)
 
-if mods["Cerys-Moon-of-Fulgora"] ~= nil then
-  sea_tile.collision_mask = {
-    layers = {
-      resource = true,
-      floor = true,
-      cerys_water_tile = true
-    }
-  } 
-else
-  data:extend({
-    { type = "collision-layer", name = "shallow_water_tile" },
-  })
-  
-  sea_tile.collision_mask = {
-    layers = {
-      resource = true,
-      floor = true,
-      shallow_water_tile = true
-    }
-  } 
-end
+
+data:extend({
+  { type = "collision-layer", name = "shallow_water_tile" },
+  { type = "collision-layer", name = "atmospheric-clouds" },
+})
+
+sea_tile.collision_mask = {
+  layers = {
+    resource = true,
+    floor = true,
+    shallow_water_tile = true,
+    is_object = true
+  }
+}
+
 data:extend {
   {
     type = "fluid",
@@ -120,8 +111,8 @@ data:extend {
 }
 
 sea_tile.fluid = "mineral-water"
-sea_tile.transitions = sea_sand_transition
 
+sea_tile.layer_group = "water"
 local ice_rock_huge = table.deepcopy(data.raw["simple-entity"]["lithium-iceberg-huge"])
 ice_rock_huge.name = "ice-rock-huge"
 local ice_rock_medium = table.deepcopy(data.raw["simple-entity"]["lithium-iceberg-big"])
@@ -139,91 +130,142 @@ ice_rock_medium.minable.results = {
   { type = "item", name = "copper-ore", amount_min = 7, amount_max = 10 }
 }
 
+
 data:extend {
   sea_tile, ice_rock_huge, ice_rock_medium
 }
 
+data.extend {
+  {
+    type = "collision-layer",
+    name = "gas-giant-surface"
+  }
+}
+
+
+local dae_dia_surface = table.deepcopy(data.raw["tile"]["empty-space"])
+
+dae_dia_surface.name = "dea-dia-surface"
+dae_dia_surface.effect = nil
+dae_dia_surface.map_color = {
+  0.57, 0.42, 0.47, 1.0
+}
+
+dae_dia_surface.collision_mask = {
+  layers = {
+    is_object = true,
+    is_lower_object = true,
+    transport_belt = true,
+    elevated_rail = true,
+    elevated_train = true,
+    ["gas-giant-surface"] = true
+  }
+}
+
+dae_dia_surface.destroys_dropped_items = true
+dae_dia_surface.variants = {
+  empty_transitions = true,
+  main = {
+    {
+      count = 1,
+      picture = "__dea-dia-system__/graphics/tiles/dae-dia.png",
+      size = 1
+    }
+  }
+}
+
 
 data:extend {
+  dae_dia_surface,
   {
-    type = "tile-effect",
-    name = "dae-dia-winds",
-    shader = "water",
-    water = {
-      shader_variation = "water",
-      textures =
-      {
+    autoplace = resource_autoplace.resource_autoplace_settings
         {
-          filename = "__space-age__/graphics/terrain/gleba/watercaustics.png",
-          width = 512,
-          height = 512
-        }
-      },
-      texture_variations_columns = 1,
-      texture_variations_rows = 1,
-      secondary_texture_variations_columns = 1,
-      secondary_texture_variations_rows = 1,
-
-
-      animation_speed = 0.8,
-      animation_scale = { 0.40, 0.68 },
-      tick_scale = 6,
-
-      specular_lightness = { 4, 10, 1 },
-      foam_color = { 8, 2, 2 },
-      foam_color_multiplier = 1,
-
-      dark_threshold = { 0.0, 0.2 },
-      reflection_threshold = { 3, 2 },
-      specular_threshold = { 0.0, 0.0 },
-
-      near_zoom = 1 / 16,
-      far_zoom = 1 / 16,
+          name = "gas-giant-cloud-3",
+          order = "s",
+          base_density = 4,
+          base_spots_per_km = 3,
+          has_starting_area_placement = false,
+          regular_rq_factor_multiplier = 1.10,
+          starting_rq_factor_multiplier = 2,
+          candidate_spot_count = 20,
+          tile_restriction= {
+            "dea-dia-surface"
+          }
+        },
+    type = "optimized-decorative",
+    name = "gas-giant-cloud-3",
+    pictures = {
+      sheet = {
+        filename = "__dea-dia-system__/graphics/decorative/cloud-3.png",
+        width = 128,
+        height = 56,
+        variation_count = 1,
+        scale = 1.0
+      }
     }
-  }, {
-  name = "dae-dia-winds",
-  type = "tile",
-  order = "z[other]-b[empty-space]",
-  subgroup = "special-tiles",
-  collision_mask =
-  {
-    layers =
-    {
-      ground_tile = true,
-      water_tile = true,
-      empty_space = true,
-      resource = true,
-      floor = true,
-      item = true,
-      object = true,
-      doodad = true
-    },
   },
-  layer_group = "zero",
-  layer = 0,
-  effect = "dae-dia-winds",
-  effect_color = { 0.5, 0.507, 0 },
-  effect_color_secondary = { 0, 68, 25 },
-  particle_tints =
   {
-    primary = { 0, 0, 0, 0 },
-    secondary = { 0, 0, 0, 0 },
+    autoplace = resource_autoplace.resource_autoplace_settings
+        {
+          name = "gas-giant-cloud-2",
+          order = "s",
+          base_density = 4,
+          base_spots_per_km = 1,
+          has_starting_area_placement = false,
+          regular_rq_factor_multiplier = 1.10,
+          starting_rq_factor_multiplier = 2,
+          candidate_spot_count = 20,
+          tile_restriction= {
+            "dea-dia-surface"
+          }
+        },
+    type = "optimized-decorative",
+    name = "gas-giant-cloud-2",
+    pictures = {
+      sheet = {
+        filename = "__dea-dia-system__/graphics/decorative/cloud-2.png",
+        width = 419,
+        height = 256,
+        variation_count = 1,
+        scale = 1.0
+      }
+    }
   },
-  variants =
   {
-    main =
-    {
-      {
-        picture = "__space-age__/graphics/terrain/empty-space.png",
-        count = 1,
-        size = 1
+    autoplace =resource_autoplace.resource_autoplace_settings{
+      name = "gas-giant-cloud-1",
+      order = "s",
+      base_density = 1,
+      base_spots_per_km = 1,
+      has_starting_area_placement = false,
+      regular_rq_factor_multiplier = 1.10,
+      starting_rq_factor_multiplier = 2,
+      candidate_spot_count = 20,
+      tile_restriction= {
+        "dea-dia-surface"
       }
     },
-    empty_transitions = true
-  },
-  map_color = { 0, 0, 0 },
-  absorptions_per_second = tile_pollution.out_of_map,
-  autoplace = { probability_expression = 1 },
-  default_cover_tile = "space-platform-foundation"
-},
+    type = "optimized-decorative",
+    name = "gas-giant-cloud-1",
+    pictures = {
+      sheet = {
+        filename = "__dea-dia-system__/graphics/decorative/cloud-1.png",
+        width = 577,
+        height = 256,
+        variation_count = 1,
+        scale = 1
+      }
+    }
+  }
 }
+
+local tile = table.deepcopy(data.raw.tile["space-platform-foundation"])
+tile.name = "dae-dia-gas-platform-tile"
+tile.collision_mask = { layers = { ground_tile = true } }
+tile.map_color = { r = 0.0, g = 0.0, b = 0.0 }
+tile.can_be_part_of_blueprint = false
+tile.layer_group = "ground-artificial"
+tile.allows_being_covered = false
+
+tile.variants.transition = table.deepcopy(data.raw.tile["concrete"].variants.transition)
+data:extend { tile }

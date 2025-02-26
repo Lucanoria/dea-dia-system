@@ -1,8 +1,9 @@
-data:extend{
+data:extend {
     {
         type = "recipe",
         category = "organic-or-chemistry",
         name = "gel-lube",
+        subgroup = "slimeweed",
         icons =
         {
             {
@@ -19,8 +20,8 @@ data:extend{
         },
         energy_required = 5,
         ingredients = {
-            { type = "fluid", name = "slimy-gel",  amount = 20 },
-            { type = "item", name = "carbon",  amount = 1 }
+            { type = "fluid", name = "slimy-gel", amount = 20 },
+            { type = "item",  name = "carbon",    amount = 1 }
         },
         results = {
             { type = "fluid", name = "lubricant", amount = 20 },

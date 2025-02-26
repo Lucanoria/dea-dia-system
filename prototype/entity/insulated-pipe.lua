@@ -463,7 +463,7 @@ data:extend({
 })
 
 data:extend { {
-  type = "technology",
+  type = "technology",lignumis_skip_science_packs=true,science_blacklist=true,
   name = "insulated-pipe",
   prerequisites = {
     "insulation-science-pack"
