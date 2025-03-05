@@ -1,78 +1,6 @@
 local resource_autoplace = require("resource-autoplace")
 
-local tile_graphics = require("__base__/prototypes/tile/tile-graphics")
-local tile_spritesheet_layout = tile_graphics.tile_spritesheet_layout
-
-
-local function transition_masks()
-  return {
-    mask_spritesheet = "__base__/graphics/terrain/masks/transition-1.png",
-    mask_layout =
-    {
-      scale = 0.5,
-      inner_corner =
-      {
-        count = 8,
-      },
-      outer_corner =
-      {
-        count = 8,
-        x = 64 * 9
-      },
-      side =
-      {
-        count = 8,
-        x = 64 * 9 * 2
-      },
-      u_transition =
-      {
-        count = 1,
-        x = 64 * 9 * 3
-      },
-      o_transition =
-      {
-        count = 1,
-        x = 64 * 9 * 4
-      }
-    }
-  }
-end
-
-
-local sea_sand_transition =
-{
-  {
-    to_tiles = water_tile_type_names,
-    transition_group = water_transition_group_id,
-
-    spritesheet = "__base__/graphics/terrain/water-transitions/sand.png",
-    layout = tile_spritesheet_layout.transition_16_16_16_4_4,
-    effect_map_layout =
-    {
-      spritesheet = "__base__/graphics/terrain/effect-maps/water-dirt-mask.png",
-      inner_corner_count = 8,
-      outer_corner_count = 8,
-      side_count = 8,
-      u_transition_count = 2,
-      o_transition_count = 1
-    }
-  },
-  {
-    to_tiles = { "out-of-map", "empty-space", "oil-ocean-shallow" },
-    transition_group = out_of_map_transition_group_id,
-
-    background_layer_offset = 1,
-    background_layer_group = "zero",
-    offset_background_layer_by_tile_layer = true,
-
-    spritesheet = "__space-age__/graphics/terrain/out-of-map-transition/volcanic-out-of-map-transition.png",
-    layout = tile_spritesheet_layout.transition_4_4_8_1_1,
-    overlay_enabled = false
-  }
-}
-
 local sea_tile = table.deepcopy(data.raw["tile"]["water-shallow"])
-
 
 sea_tile.layer_group = "water-overlay"
 sea_tile.autoplace = table.deepcopy(data.raw["tile"]["water"].autoplace)
@@ -80,24 +8,24 @@ sea_tile.autoplace = table.deepcopy(data.raw["tile"]["water"].autoplace)
 sea_tile.name = "primal-sea"
 
 sea_tile.default_cover_tile = "landfill"
-sea_tile.variants.transition = transition_masks()
-sea_tile.transitions = table.deepcopy(data.raw.tile["water"].transitions)
-sea_tile.transitions_between_transitions = table.deepcopy(data.raw.tile["water"].transitions_between_transitions)
 
 
 data:extend({
-  { type = "collision-layer", name = "shallow_water_tile" },
-  { type = "collision-layer", name = "atmospheric-clouds" },
+  {
+    type = "collision-layer",
+    name = "shallow_water_tile"
+  },
+  {
+    type = "collision-layer",
+    name = "gas-giant-surface"
+  },
+  {
+    type = "collision-layer",
+    name = "gas-platform-surface"
+  }
 })
 
-sea_tile.collision_mask = {
-  layers = {
-    resource = true,
-    floor = true,
-    shallow_water_tile = true,
-    is_object = true
-  }
-}
+sea_tile.collision_mask.layers["shallow_water_tile"] = true
 
 data:extend {
   {
@@ -135,13 +63,6 @@ data:extend {
   sea_tile, ice_rock_huge, ice_rock_medium
 }
 
-data.extend {
-  {
-    type = "collision-layer",
-    name = "gas-giant-surface"
-  }
-}
-
 
 local dae_dia_surface = table.deepcopy(data.raw["tile"]["empty-space"])
 
@@ -150,14 +71,16 @@ dae_dia_surface.effect = nil
 dae_dia_surface.map_color = {
   0.57, 0.42, 0.47, 1.0
 }
+dae_dia_surface.fluid = "steam"
+
 
 dae_dia_surface.collision_mask = {
   layers = {
-    is_object = true,
-    is_lower_object = true,
-    transport_belt = true,
-    elevated_rail = true,
-    elevated_train = true,
+    floor = true,
+    player = true,
+    water_tile = true,
+    rail = true,
+    rail_support = true,
     ["gas-giant-surface"] = true
   }
 }
@@ -188,7 +111,7 @@ data:extend {
           regular_rq_factor_multiplier = 1.10,
           starting_rq_factor_multiplier = 2,
           candidate_spot_count = 20,
-          tile_restriction= {
+          tile_restriction = {
             "dea-dia-surface"
           }
         },
@@ -215,7 +138,7 @@ data:extend {
           regular_rq_factor_multiplier = 1.10,
           starting_rq_factor_multiplier = 2,
           candidate_spot_count = 20,
-          tile_restriction= {
+          tile_restriction = {
             "dea-dia-surface"
           }
         },
@@ -232,7 +155,7 @@ data:extend {
     }
   },
   {
-    autoplace =resource_autoplace.resource_autoplace_settings{
+    autoplace = resource_autoplace.resource_autoplace_settings {
       name = "gas-giant-cloud-1",
       order = "s",
       base_density = 1,
@@ -241,7 +164,7 @@ data:extend {
       regular_rq_factor_multiplier = 1.10,
       starting_rq_factor_multiplier = 2,
       candidate_spot_count = 20,
-      tile_restriction= {
+      tile_restriction = {
         "dea-dia-surface"
       }
     },
@@ -266,6 +189,7 @@ tile.map_color = { r = 0.0, g = 0.0, b = 0.0 }
 tile.can_be_part_of_blueprint = false
 tile.layer_group = "ground-artificial"
 tile.allows_being_covered = false
+tile.collision_mask["gas-platform-surface"] = true
 
 tile.variants.transition = table.deepcopy(data.raw.tile["concrete"].variants.transition)
 data:extend { tile }

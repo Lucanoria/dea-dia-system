@@ -11,9 +11,6 @@ data:extend { {
     stack_size = 50
 } }
 
-if mods["dredgeworks"] then
-    do_not_submerge["rich-soil"] = true
-end
 
 data:extend {
     -- allows the player to get some ores out of soil without any machines.
@@ -21,6 +18,7 @@ data:extend {
         type = "recipe",
         category = "crafting",
         name = "soil-shifting",
+        enabled=false,
         subgroup = "soil-processing",
         icons = {
             {
@@ -55,12 +53,12 @@ data:extend {
             { type = "item", name = "wood",       amount = 1 },
             { type = "item", name = "wood",       amount = 1, probability = .75 },
             { type = "item", name = "wood",       amount = 1, probability = .25 },
-        },
-        enabled = true
+        }
     },
     {
         type            = "recipe",
         name            = "soil-landfil",
+        enabled=false,
         category        = "heating-or-assembling",
         energy_required = 5,
         icons           = {

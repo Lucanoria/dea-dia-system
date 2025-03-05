@@ -22,6 +22,7 @@ PlanetsLib:extend {
     {
         type = "space-location",
         name = "dea-dia-system-edge",
+        subgroup="planets",
         icon = "__space-age__/graphics/icons/solar-system-edge.png",
         draw_orbit = false,
         orbit = {

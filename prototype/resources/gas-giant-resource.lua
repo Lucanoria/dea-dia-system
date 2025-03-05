@@ -9,14 +9,14 @@ local function gas_resource(name, result,randomness, start_area)
         name = name,
         order = "b",
         base_density = 1,
-        richness_multiplier =30,
+        richness_multiplier =100000,
         base_spots_per_km2 = randomness,
         has_starting_area_placement = start_area,
         random_spot_size_minimum = 0.01,
         random_spot_size_maximum = 0.01,
         regular_blob_amplitude_multiplier = 1,
         richness_post_multiplier = 1.0,
-        --additional_richness = 400000,
+        additional_richness = 400000,
         starting_rq_factor_multiplier = 0.1,  -- Makes patches have only one entity
         regular_rq_factor_multiplier = 0.1,
         candidate_spot_count = 10,
@@ -87,6 +87,11 @@ local function gas_resource(name, result,randomness, start_area)
     base.minable.results[1].name = result
     base.icon = result_fluid.icon
     data:extend { base }
+
+    -- probably not needed, but will make dredgeworks ignore this anyways.
+    if mods["dredgeworks"] then
+        do_not_submerge[name] = true
+    end
 end
 data:extend {
     {
@@ -95,7 +100,7 @@ data:extend {
     }
 }
 
--- gas_resource("lithium","lithium-gas")
+-- gas_resource("water-wind", "water",0.04,true)
 gas_resource("fluorine-wind", "fluorine",0.02,false)
 gas_resource("gas-wind", "petroleum-gas",0.02,false)
 gas_resource("ammonia-wind", "ammonia",0.015,false)

@@ -1,7 +1,7 @@
 require("control.lib")
-local platform_radius = 25
+local platform_radius = 18
 
-local excluded_names ={ "lex-flying-gunship", "lex-flying-cargo", "lex-flying-heavyship" }
+local excluded_names = { "lex-flying-gunship", "lex-flying-cargo", "lex-flying-heavyship" }
 
 -- builds the gas collector platform after the starter was placed.
 local function build_collector(entity, player)
@@ -11,8 +11,34 @@ local function build_collector(entity, player)
     surface.create_entity({
         name = "gas-collector-roboport",
         position = position,
-        force = force
+        force = force,
+        quality = entity.quality.name
     })
+
+    local resource = surface.find_entities_filtered({
+        position = position,
+        type = "resource"
+    })
+
+    for i, res in ipairs(resource) do
+        if res.type == "resource" then
+            local resource_name = res.name
+
+            surface.create_entity({
+                name = "gas-miner-" .. resource_name,
+                position = position,
+                force = force,
+                quality = entity.quality.name
+            })
+        end
+    end
+
+    local drill = surface.find_entity("gas-collector", position)
+
+    if drill ~= nil then
+        drill.destroy()
+    end
+
     --create the platform that the player will build on.
     local tiles = {}
     for x = position.x - platform_radius, position.x + platform_radius do
@@ -27,11 +53,10 @@ local function build_collector(entity, player)
 end
 
 
-local function destroy_entities(surface,area)
-    
+local function destroy_entities(surface, area)
     local to_be_destroyed = surface.find_entities_filtered({
         type = { "construction-robot", "logistic-robot", "following-robot" },
-        name= {"lex-aircraft-leg","character"},
+        name = { "lex-aircraft-leg", "character" },
         area = destroy_area,
         invert = true
     })
@@ -43,14 +68,14 @@ local function destroy_entities(surface,area)
         if value.is_player() then
             goto continue
         end
-        if table_contains(excluded_names,value.name) then
+        if table_contains(excluded_names, value.name) then
             goto continue
         end
         value.die()
         ::continue::
     end
     local corpses = surface.find_entities_filtered({
-        type = { "corpse",},
+        type = { "corpse", },
         area = destroy_area
     })
     for index, value in pairs(corpses) do
@@ -60,7 +85,6 @@ local function destroy_entities(surface,area)
         value.destroy()
         ::continue::
     end
-
 end
 
 
@@ -81,10 +105,18 @@ local function mine_collector(entity, player)
         surface.set_tiles(tiles, true, false, true, false)
     end
     -- destroy the pump too.
-    local collector = surface.find_entity('gas-collector', position)
+    local collector = surface.find_entities_filtered {
+        name = 'gas-collector',
+        area = {
+            { position.x - 2, position.y - 2 },
+            { position.x + 2, position.y + 2 },
+        }
+    }
 
     if collector ~= nil then
-        collector.destroy()
+        for index, value in ipairs(collector) do
+            value.destroy()
+        end
     end
 
     destroy_area = { {
@@ -107,9 +139,13 @@ local function mine_collector(entity, player)
         },
         area = destroy_area
     }
-    destroy_entities(surface,destroy_area)
+    destroy_entities(surface, destroy_area)
 end
 
+
+remote.add_interface("dea_dia_system", {
+    mine_platform = mine_collector
+})
 
 script.on_event(defines.events.on_built_entity, function(event)
     build_collector(event.entity, event.player)

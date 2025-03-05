@@ -2,7 +2,7 @@ local working_visualisations = {
     {
         always_draw = true,
         animation = {
-            stripes={
+            stripes = {
                 {
                     filename = "__dea-dia-system__/graphics/entity/greenhouse/greenhouse-hr-animation-1.png",
                     width_in_frames = 8,
@@ -17,9 +17,9 @@ local working_visualisations = {
             priority = "high",
             width = 2720 / 8,
             height = 2840 / 8,
-            frame_count = 8*8+8*8,
+            frame_count = 8 * 8 + 8 * 8,
             animation_speed = 1,
-            scale = 0.5,
+            scale = 0.55,
             run_mode = "forward",
             flags = { "no-scale" }
         },
@@ -27,7 +27,7 @@ local working_visualisations = {
     {
         always_draw = true,
         animation = {
-            stripes={
+            stripes = {
                 {
                     filename = "__dea-dia-system__/graphics/entity/greenhouse/greenhouse-hr-emission-1.png",
                     width_in_frames = 8,
@@ -42,9 +42,9 @@ local working_visualisations = {
             priority = "high",
             width = 2720 / 8,
             height = 2840 / 8,
-            frame_count = 8*8+8*8,
+            frame_count = 8 * 8 + 8 * 8,
             animation_speed = 1,
-            scale = 0.5,
+            scale = 0.55,
             run_mode = "forward",
             draw_as_light = true,
             flags = { "no-scale" }
@@ -98,21 +98,31 @@ data:extend {
         allowed_effects = { "consumption", "productivity", "pollution", "quality" },
         collision_box = { { -2.4, -2.4 }, { 2.4, 2.4 } },
         selection_box = { { -2.5, -2.5 }, { 2.5, 2.5 } },
+
         effect_receiver = {},
-        forced_symetry= "vertical",
-        fluid_boxes = {
+        forced_symetry = "vertical",
+        fluid_boxes =
+        {
             {
                 production_type = "input",
-                pipe_picture = require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").pipe_pictures,
-                pipe_picture_frozen = require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").pipe_pictures_frozen,
                 pipe_covers = pipecoverspictures(),
-                volume = 100,
-                pipe_connections = { { direction = defines.direction.south, flow_direction = "input", position = { 1.9, 1.9 } } },
-                secondary_draw_orders = { north = -1 },
+                volume = 1000,
+                pipe_connections = {
+                    { flow_direction = "input-output", direction = defines.direction.south, position = { -1, 2 } },
+                    { flow_direction = "input-output", direction = defines.direction.north, position = { -1, -2 } }
+                }
+            },
+            {
+                production_type = "input",
+                pipe_covers = pipecoverspictures(),
+                volume = 1000,
+                pipe_connections = {
+                    { flow_direction = "input-output", direction = defines.direction.south, position = { 1, 2 } },
+                    { flow_direction = "input-output", direction = defines.direction.north, position = { 1, -2 } } }
             }
         },
+        fluid_boxes_off_when_no_fluid_recipe = true,
         perceived_performance = { minimum = 0.25, performance_to_activity_rate = 20.0, maximum = 5 },
-        off_when_no_fluid_recipe = true,
         crafting_categories = {
             "hydroponics"
         },
@@ -140,7 +150,7 @@ data:extend {
                 height = 2840 / 8,
                 shift = util.by_pixel(0, 2),
                 scale = 0.5
-              }
+            }
         }
     }, {
     default_import_location = "prosephina",
@@ -179,7 +189,7 @@ data:extend {
     }
 
 }, {
-    type = "technology",lignumis_skip_science_packs=true,    name = "prosephina-greenhouse",
+    type = "technology", lignumis_skip_science_packs = true, name = "prosephina-greenhouse",
     research_trigger = {
         type = "mine-entity",
         entity = "rich-soil"

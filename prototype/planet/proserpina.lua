@@ -83,6 +83,7 @@ local prosephina =
     name = "prosephina",
     tier= -1,
     solar_power_in_space = 20,
+    subgroup="satellites",
     icon = "__dea-dia-system__/graphics/icon/planet-prosephina.png",
     icon_size = 64,
     platform_procession_set = table.deepcopy(nauvis.platform_procession_set),
@@ -108,7 +109,7 @@ local prosephina =
     surface_properties = {
         ["solar-power"] = 15,
         ["pressure"] = 800,
-        ["magnetic-field"] = nauvis.surface_properties["magnetic-field"],
+        ["magnetic-field"] = 80,
         ["day-night-cycle"] = nauvis.surface_properties["day-night-cycle"]
     },
     map_gen_settings = MapGen_prosephina()
@@ -151,6 +152,10 @@ data:extend { {
         {
             type = "unlock-recipe",
             recipe= "steam-turbine"
+        },
+        {
+            type="unlock-recipe",
+            recipe="soil-shifting"
         }
     },
     prerequisites = {

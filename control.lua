@@ -2,3 +2,4 @@
 require("control.lib")
 require("control.gas-collector-placement")
 require("control.floaters")
+-- require("control.aircraft")

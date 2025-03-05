@@ -1,28 +1,28 @@
 local name = "fossil"
-local magnesium_name = "magnesium-dust"
+local rhenium_name = "rhenium-dust"
 data:extend { {
     default_import_location = "lemures",
     type = "item",
-    name = magnesium_name,
+    name = rhenium_name,
     icon_size = 64,
-    order = "a[smelting]-da[magnesium-dust]",
+    order = "a[smelting]-da[rhenium-dust]",
     weight = 1000,
-    icon = "__dea-dia-system__/graphics/icon/" .. magnesium_name .. "-1.png",
+    icon = "__dea-dia-system__/graphics/icon/" .. rhenium_name .. "-1.png",
     pictures = {
         {
-            filename = "__dea-dia-system__/graphics/icon/" .. magnesium_name .. "-1.png",
+            filename = "__dea-dia-system__/graphics/icon/" .. rhenium_name .. "-1.png",
             mipmap_count = 4,
             scale = 0.5,
             size = 64
         },
         {
-            filename = "__dea-dia-system__/graphics/icon/" .. magnesium_name .. "-2.png",
+            filename = "__dea-dia-system__/graphics/icon/" .. rhenium_name .. "-2.png",
             mipmap_count = 4,
             scale = 0.5,
             size = 64
         },
         {
-            filename = "__dea-dia-system__/graphics/icon/" .. magnesium_name .. "-3.png",
+            filename = "__dea-dia-system__/graphics/icon/" .. rhenium_name .. "-3.png",
             mipmap_count = 4,
             scale = 0.5,
             size = 64
@@ -33,12 +33,12 @@ data:extend { {
 }, {
     default_import_location = "lemures",
     type = "item",
-    name = "magnesium-plate",
+    name = "rhenium-plate",
     subgroup = "raw-material",
     weight = 1000,
-    order = "a[smelting]-d[magnesium-plate]",
+    order = "a[smelting]-d[rhenium-plate]",
     icon_size = 64,
-    icon = "__dea-dia-system__/graphics/icon/magnesium-plate.png",
+    icon = "__dea-dia-system__/graphics/icon/rhenium-plate.png",
     stack_size = 50
 }
 }
@@ -75,6 +75,8 @@ data:extend { {
         category           = "chemistry",
         name               = "fossil-processing",
         subgroup           = "vulcanus-processes",
+        allow_productivity = true,
+
         enabled            = false,
         icon               = "__dea-dia-system__/graphics/icon/fossil-3.png",
         surface_conditions = {
@@ -91,7 +93,7 @@ data:extend { {
         results            =
         {
             { type = "item",  name = "calcite",      amount = 3 },
-            { type = "item",  name = magnesium_name, amount = 4 },
+            { type = "item",  name = rhenium_name, amount = 4 },
             { type = "item",  name = "sulfur",       amount = 1 },
             { type = "fluid", name = "water",        amount = 50 },
         }
@@ -111,22 +113,22 @@ data:extend { {
     },
     {
         type = "unlock-recipe",
-        recipe = "magnesium-plate"
+        recipe = "rhenium-plate"
     }
 }
 }, {
     type            = "recipe",
     category        = "smelting",
-    name            = "magnesium-plate",
+    name            = "rhenium-plate",
     enabled         = false,
-    icon            = "__dea-dia-system__/graphics/icon/magnesium-plate.png",
+    icon            = "__dea-dia-system__/graphics/icon/rhenium-plate.png",
     energy_required = 20,
     ingredients     = {
-        { type = "item", name = magnesium_name, amount = 3 },
+        { type = "item", name = rhenium_name, amount = 3 },
     },
     results         =
     {
-        { type = "item", name = "magnesium-plate", amount = 1 },
+        { type = "item", name = "rhenium-plate", amount = 1 },
     }
 },
 }

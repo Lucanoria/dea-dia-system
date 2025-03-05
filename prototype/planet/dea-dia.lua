@@ -5,7 +5,7 @@ function MapGen_dae_dia()
     map_gen_setting.property_expression_names = {}
 
     map_gen_setting.autoplace_controls = {
-       -- ["floater-spawner"] = {}
+        -- ["floater-spawner"] = {}
     }
 
     map_gen_setting.autoplace_settings["tile"] = {
@@ -29,7 +29,7 @@ function MapGen_dae_dia()
             ["ammonia-wind"] = {},
             ["lithium-wind"] = {},
             ["holmium-wind"] = {},
-           -- ["floater-spawner"] = {}
+            --["floater-spawner"] = {}
         }
     }
 
@@ -39,6 +39,22 @@ end
 local planets = data.raw["planet"]
 local fulgora = planets["fulgora"]
 
+local ligthning = table.deepcopy(fulgora.lightning_properties)
+ligthning.exemption_rules = {
+    {
+        type = "prototype",
+        string = "construction-robot"
+    },
+    {
+        type = "prototype",
+        string = "logistic-robot"
+    },
+    {
+        type = "prototype",
+        string = "spidertron"
+    }
+}
+
 PlanetsLib:extend {
     {
         type = "planet",
@@ -47,7 +63,8 @@ PlanetsLib:extend {
         starmap_icon = "__dea-dia-system__/graphics/planet-dea-dia.png",
         starmap_icon_size = 1024,
         solar_power_in_space = 30,
-
+        subgroup = "planets",
+        lightning_properties = ligthning,
         platform_procession_set =
         {
             arrival = { "planet-to-platform-b" },
@@ -80,10 +97,29 @@ PlanetsLib:extend {
                 scale = 0.25,
             }
         },
+        persistent_ambient_sounds =
+        {
+            base_ambience = { filename = "__space-age__/sound/wind/base-wind-aquilo.ogg", volume = 0.5 },
+            wind = { filename = "__space-age__/sound/wind/wind-aquilo.ogg", volume = 0.8 },
+            crossfade =
+            {
+                order = { "wind", "base_ambience" },
+                curve_type = "cosine",
+                from = { control = 0.35, volume_percentage = 0.0 },
+                to = { control = 2, volume_percentage = 100.0 }
+            },
+            semi_persistent =
+            {
+                {
+                    sound = { variations = sound_variations("__space-age__/sound/world/semi-persistent/cold-wind-gust", 5, 0.3) },
+                    delay_mean_seconds = 15,
+                    delay_variance_seconds = 9
+                }
+            }
+        },
         map_gen_settings = MapGen_dae_dia(),
         surface_render_parameters = {
             fog = {
-                -- fog_type="gleba",
                 color1 = {
                     0.74,
                     0.34,
@@ -111,9 +147,10 @@ PlanetsLib:extend {
 }
 
 data:extend {
-
     {
-        type = "technology", lignumis_skip_science_packs = true, name = "planet-discovery-dea-dia",
+        type = "technology",
+        lignumis_skip_science_packs = true,
+        name = "planet-discovery-dea-dia",
         icons = PlanetsLib.technology_icon_planet("__dea-dia-system__/graphics/planet-dea-dia.png", 1024),
         essential = true,
         localised_description = { "space-location-description.dea-dia" },
@@ -128,16 +165,16 @@ data:extend {
                 recipe = "gas-collector"
             }, {
             type = "unlock-recipe",
-            recipe = "magnesium-alloy-plate"
+            recipe = "rhenium-alloy-plate"
         }, {
             type = "unlock-recipe",
             recipe = "aerospace-science-pack"
         }
         },
         prerequisites = {
-            "insulation-science-pack",
             "thermodynamic-science-pack",
-            "mech-armor"
+            "mech-armor",
+            "thorium-processing"
         },
         unit = {
             count = 1000,
@@ -152,4 +189,35 @@ data:extend {
             time = 60,
         },
         order = "m[prosephina]",
-    } }
+    }
+}
+
+data:extend{
+    {
+        type = "ambient-sound",
+        name="dea-dia-1",
+        sound = {
+            filename ="__dea-dia-system__/music/dea-dia/Aldous Ichnite - Dreams Twisted by Cosmic Winds.ogg"
+        },
+        track_type="hero-track",
+        planet="planet-dea-dia"
+    },
+    {
+        type = "ambient-sound",
+        name="dea-dia-2",
+        sound = {
+            filename ="__dea-dia-system__/music/dea-dia/Aldous Ichnite - Echoes of a Distant Earth.ogg"
+        },
+        track_type="main-track",
+        planet="planet-dea-dia"
+    },
+    {
+        type = "ambient-sound",
+        name="dea-dia-3",
+        sound = {
+            filename ="__dea-dia-system__/music/dea-dia/Aldous Ichnite - Dreams Twisted by Cosmic Winds.ogg"
+        },
+        track_type="main-track",
+        planet="planet-dea-dia"
+    }
+}

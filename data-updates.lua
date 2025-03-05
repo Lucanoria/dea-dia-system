@@ -19,8 +19,11 @@ local function add_crafting_category_if_other_category_exists(category_to_find, 
 end
 
 require("prototype.compat.compat")
+require("prototype.updates.gas-platform")
+require("prototype.updates.canning")
 
 add_crafting_category_if_other_category_exists("chemistry", "heating-or-chemistry")
+add_crafting_category_if_other_category_exists("chemistry", "forging-or-chemistry")
 add_crafting_category_if_other_category_exists("crafting-with-fluid", "heating-or-assembling")
 add_crafting_category_if_other_category_exists("advanced-crafting", "heating-or-assembling")
 add_crafting_category_if_other_category_exists("basic-crafting", "bending")
@@ -43,6 +46,9 @@ data.raw["recipe"]["flamethrower-turret"].category = "bending"
 data.raw["recipe"]["gun-turret"].category = "bending"
 data.raw["recipe"]["gate"].category = "bending"
 
+-- allow the forge to melt ice
+data.raw["recipe"]["ice-melting"].category = "forging-or-chemistry"
+
 table.insert(data.raw["technology"]["plastic-bar-productivity"].effects, {
     recipe = "gel-plastic",
     type = "change-recipe-productivity",
@@ -58,11 +64,6 @@ table.insert(data.raw["technology"]["plastic-bar-productivity"].effects, {
 
 table.insert(data.raw["technology"]["rocket-fuel-productivity"].effects, {
     recipe = "gel-rocket-fuel",
-    type = "change-recipe-productivity",
-    change = 0.1
-})
-table.insert(data.raw["technology"]["rocket-fuel-productivity"].effects, {
-    recipe = "magnesium-rocket-fuel",
     type = "change-recipe-productivity",
     change = 0.1
 })
@@ -85,11 +86,4 @@ table.insert(landfill_tile_condition,#landfill_tile_condition+1, "primal-sea")
 
 table.insert(data.raw["technology"]["promethium-science-pack"].prerequisites, "thermodynamic-science-pack")
 table.insert(data.raw["technology"]["promethium-science-pack"].prerequisites, "planet-discovery-dea-dia")
-
-
--- alter cold biters subgroups, so they show up on bio processing now
-data.raw["item"]["cb_alien_cold_artifact"].subgroup = "cold-biters"
-data.raw["recipe"]["cb-clean-gland"].subgroup = "cold-biters"
-data.raw["recipe"]["cb-cold-extract"].subgroup = "cold-biters"
-data.raw["recipe"]["cb-artifact-to-oil"].subgroup = "cold-biters"
 

@@ -2,23 +2,23 @@ data:extend {
     {
         default_import_location = "planet-dea-dia",
         type = "item",
-        name = "magnesium-alloy-plate",
+        name = "rhenium-alloy-plate",
         subgroup = "raw-material",
-        order = "a[smelting]-dz[magnesium-alloy-plate]",
+        order = "a[smelting]-dz[rhenium-alloy-plate]",
         icon_size = 64,
-        icon = "__dea-dia-system__/graphics/icon/magnesium-alloy.png",
+        icon = "__dea-dia-system__/graphics/icon/rhenium-alloy.png",
         stack_size = 50,
         weight = 2000,
     }, {
     type = "recipe",
-    name = "magnesium-alloy-plate",
+    name = "rhenium-alloy-plate",
     subgroup = "raw-material",
-    order = "a[smelting]-dz[magnesium-alloy-plate]",
+    order = "a[smelting]-dz[rhenium-alloy-plate]",
     category = "heating-or-metallurgy",
     icon_size = 64,
     enabled = false,
     energy_required = 10,
-    icon = "__dea-dia-system__/graphics/icon/magnesium-alloy.png",
+    icon = "__dea-dia-system__/graphics/icon/rhenium-alloy.png",
     surface_conditions = {
         {
             property = "magnetic-field",
@@ -29,11 +29,12 @@ data:extend {
     }
     },
     ingredients = {
-        { type = "fluid", name = "lithium-brine",  amount = 10 },
-        { type = "item",  name = "carbon",         amount = 1 },
-        { type = "item",  name = "magnesium-dust", amount = 6 },
+        { type = "fluid", name = "lithium-brine",  amount = 20 },
+        { type = "item",  name = "carbon",         amount = 2 },
+        { type = "item",  name = "rhenium-dust", amount = 12 },
+        { type = "item",  name = "thorium",        amount = 1 },
     }, results = {
-    { type = "item", name = "magnesium-alloy-plate", amount = 1 }
+    { type = "item", name = "rhenium-alloy-plate", amount = 2 }
 }
 },
     {
@@ -41,6 +42,7 @@ data:extend {
         name = "fluorine-plastic",
         order = "a[plastic]-dz[fluorine-plastic]",
         category = "chemistry",
+        enabled = false,
         icon_size = 64,
         energy_required = 2,
         icons = {
@@ -54,8 +56,9 @@ data:extend {
 
         },
         ingredients = {
-            { type = "fluid", name = "fluorine",      amount = 10 },
-            { type = "fluid", name = "petroleum-gas", amount = 20 },
+            { type = "fluid", name = "fluorine", amount = 10 },
+            { type = "item",  name = "carbon",   amount = 5 },
+            { type = "fluid", name = "water",    amount = 20 },
         }, results = {
         { type = "item", name = "plastic-bar", amount = 1 }
     }
@@ -74,7 +77,7 @@ data:extend {
             },
             {
                 icon = "__space-age__/graphics/icons/carbon.png",
-                scale= .7
+                scale = .7
             }
 
         },
@@ -89,6 +92,7 @@ data:extend {
         name = "gas-rocket-fuel",
         order = "a[rocket-fuel]-dz[gas-rocket-fuel]",
         category = "chemistry",
+        enabled = false,
         icon_size = 64,
         crafting_machine_tint = {
             primary = {
@@ -133,7 +137,9 @@ data:extend {
         { type = "item", name = "rocket-fuel", amount = 1 }
     }
     }, {
-    type = "technology",lignumis_skip_science_packs=true,    name = "alternative-chemistry",
+    type = "technology",
+    ignumis_skip_science_packs = true,
+    name = "alternative-chemistry",
     icon = "__dea-dia-system__/graphics/icon/alternative-polymer-tech-icon.png",
     icon_size = 256,
     essential = false,
@@ -164,5 +170,69 @@ data:extend {
         time = 60,
     },
     order = "d[chemistry]-e[alternative-polymers]",
+}, {
+    type = "technology",
+    lignumis_skip_science_packs = true,
+    name = "lithium-battery",
+    icons = {
+        {
+            icon = "__space-age__/graphics/technology/lithium-processing.png",
+            icon_size = 256
+        },
+        {
+            icon = "__base__/graphics/technology/battery.png",
+            icon_size = 256
+        }
+    },
+    essential = false,
+    effects = {
+        {
+            type = "unlock-recipe",
+            recipe = "lithium-battery"
+        }
+    },
+    prerequisites = {
+        "planet-discovery-dea-dia"
+    },
+    unit = {
+        count = 200,
+        ingredients = {
+            { "automation-science-pack", 1 },
+            { "logistic-science-pack",   1 },
+            { "military-science-pack",   1 },
+            { "chemical-science-pack",   1 },
+            { "aerospace-science-pack",  1 }
+        },
+        time = 60,
+    },
+    order = "d[chemistry]-e[alternative-polymers]",
+}, {
+    type = "recipe",
+    name = "lithium-battery",
+    order = "b[chemistry]-d[battery-lithium]",
+    category = "chemistry",
+    enabled = false,
+    energy_required = 2,
+    icons = {
+        {
+            icon = "__base__/graphics/icons/battery.png",
+            size = 64
+        },
+        {
+            icon = "__space-age__/graphics/icons/fluid/lithium-brine.png",
+            size = 64,
+            scale = .2,
+            shift = {
+                8, 8
+            }
+        },
+
+    },
+    ingredients = {
+        { type = "fluid", name = "lithium-brine", amount = 5 },
+        { type = "item",  name = "copper-plate",  amount = 1 },
+        { type = "item",  name = "iron-plate",    amount = 1 },
+    }, results = {
+    { type = "item", name = "battery", amount = 1 }
 }
-}
+}}

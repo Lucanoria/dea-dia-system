@@ -18,7 +18,7 @@ data:extend {
         energy_required = 10,
         ingredients = {
             { type = "item", name = "electronic-circuit",       amount = 1 },
-            { type = "item", name = "magnesium-plate",  amount = 20 },
+            { type = "item", name = "rhenium-plate",  amount = 20 },
             { type = "item", name = "copper-plate", amount = 5 },
         },
         subgroup = "military-equipment",
@@ -56,7 +56,9 @@ data:extend {
         categories = { "armor" },
         order = "b[shield]-b[armor-plate-equipment]",
     }, {
-    type = "technology",lignumis_skip_science_packs=true,    name = "armor-plate-equipment",
+    type = "technology",
+    lignumis_skip_science_packs=true, 
+    name = "armor-plate-equipment",
     icon = "__dea-dia-system__/graphics/icon/armor-plate-tech-icon.png",
     icon_size = 256,
     essential = false,

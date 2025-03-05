@@ -110,14 +110,15 @@ data:extend {
         place_result = "thermodynamics-lab",
         subgroup = "production-machine",
         stack_size = 50,
-        order ="z[z-thermodynamics-lab]",
+        order = "z[z-thermodynamics-lab]",
         scale = 0.5,
     }, {
     type = "recipe",
     name = "thermodynamics-lab",
     enabled = false,
     ingredients = {
-        { type = "item", name = "magnesium-plate",  amount = 5 },
+        { type = "item", name = "rhenium-plate",  amount = 5 },
+        { type = "item", name = "thorium",          amount = 1 },
         { type = "item", name = "electric-furnace", amount = 2 },
         { type = "item", name = "lab",              amount = 3 },
         { type = "item", name = "processing-unit",  amount = 3 },
@@ -126,22 +127,25 @@ data:extend {
         { type = "item", name = "thermodynamics-lab", amount = 1 },
     }
 }, {
-    type = "technology",lignumis_skip_science_packs=true,    name = "thermodynamics-lab",
+    type = "technology",
+    lignumis_skip_science_packs = true,
+    name = "thermodynamics-lab",
     prerequisites = {
-        "thermodynamic-science-pack"
+        "thermodynamic-science-pack",
+        "thorium-processing"
     },
     icon = "__dea-dia-system__/graphics/icon/thermodynamics-lab-tech-icon.png",
     icon_size = 256,
     unit = {
         ingredients = {
-            { "automation-science-pack", 1 },
-            { "logistic-science-pack",   1 },
-            { "chemical-science-pack",   1 },
-            { "production-science-pack", 1 },
-            { "utility-science-pack",    1 },
-            { "space-science-pack",      1 },
-            { "insulation-science-pack",      1 },
-            { "thermodynamic-science-pack",   1 }
+            { "automation-science-pack",    1 },
+            { "logistic-science-pack",      1 },
+            { "chemical-science-pack",      1 },
+            { "production-science-pack",    1 },
+            { "utility-science-pack",       1 },
+            { "space-science-pack",         1 },
+            { "insulation-science-pack",    1 },
+            { "thermodynamic-science-pack", 1 }
         },
         time = 60,
         count = 1000,

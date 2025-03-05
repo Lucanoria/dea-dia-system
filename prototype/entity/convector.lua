@@ -19,7 +19,7 @@ local working_visualisations = {
             height = 2800 / 8,
             frame_count = 8 * 8 + 8 * 2,
             animation_speed = 1,
-            scale = 0.5,
+            scale = .6,
             run_mode = "forward",
             flags = { "no-scale" }
         },
@@ -44,7 +44,7 @@ local working_visualisations = {
             height = 2800 / 8,
             frame_count = 8 * 8 + 8 * 2,
             animation_speed = 1,
-            scale = 0.5,
+            scale = .6,
             run_mode = "forward",
             draw_as_glow = true,
             flags = { "no-scale" }
@@ -60,7 +60,7 @@ local working_visualisations = {
             frame_count = 1,
             line_length = 1,
             animation_speed = 1,
-            scale = 0.5,
+            scale = .6,
             draw_as_shadow = true,
         },
     }
@@ -86,22 +86,57 @@ data:extend {
         dying_explosion = "big-explosion",
         module_slots = 5,
         allowed_effects = { "consumption", "speed", "productivity", "pollution", "quality" },
-        collision_box = { { -2.4, -2.4 }, { 2.4, 2.4 } },
-        selection_box = { { -2.5, -2.5 }, { 2.5, 2.5 } },
+        collision_box = {{-2.4, -2.4}, {2.4, 2.4}},
+        selection_box = {{-2.5, -2.5}, {2.5, 2.5}},    
         effect_receiver = { base_effect = { productivity = 0.5 } },
-        fluid_boxes = {
-            {
-                production_type = "input",
-                pipe_picture = require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").pipe_pictures,
-                pipe_picture_frozen = require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").pipe_pictures_frozen,
-                pipe_covers = pipecoverspictures(),
-                volume = 100,
-                pipe_connections = { { direction = defines.direction.south, flow_direction = "input", position = { 1.9, 1.9 } } },
-                secondary_draw_orders = { north = -1 },
-            }
+        fluid_boxes =
+        {
+          {
+            production_type = "input",
+            pipe_covers = pipecoverspictures(),
+            volume = 1000,
+            pipe_connections = {{ flow_direction="input", direction = defines.direction.south, position = {-2, 2} }}
+          },
+          {
+            production_type = "input",
+            pipe_picture =  require("__space-age__.prototypes.entity.cryogenic-plant-pictures").pipe_picture,
+            pipe_picture_frozen =  require("__space-age__.prototypes.entity.cryogenic-plant-pictures").pipe_picture_frozen,
+            always_draw_covers = true, -- fighting against FluidBoxPrototype::always_draw_covers crazy default
+            pipe_covers = pipecoverspictures(),
+            volume = 1000,
+            pipe_connections = {{ flow_direction="input", direction = defines.direction.south, position = {0, 2} }}
+          },
+          {
+            production_type = "input",
+            pipe_covers = pipecoverspictures(),
+            volume = 1000,
+            pipe_connections = {{ flow_direction="input", direction = defines.direction.south, position = {2, 2} }}
+          },
+          {
+            production_type = "output",
+            pipe_covers = pipecoverspictures(),
+            volume = 100,
+            pipe_connections = {{ flow_direction="output", direction = defines.direction.north, position = {-2, -2} }}
+          },
+          {
+            production_type = "output",
+            pipe_picture =  require("__space-age__.prototypes.entity.cryogenic-plant-pictures").pipe_picture,
+            pipe_picture_frozen =  require("__space-age__.prototypes.entity.cryogenic-plant-pictures").pipe_picture_frozen,
+            always_draw_covers = true, -- fighting against FluidBoxPrototype::always_draw_covers crazy default
+            pipe_covers = pipecoverspictures(),
+            volume = 100,
+            pipe_connections = {{ flow_direction="output", direction = defines.direction.north, position = {0, -2} }}
+          },
+          {
+            production_type = "output",
+            pipe_covers = pipecoverspictures(),
+            volume = 100,
+            pipe_connections = {{ flow_direction="output", direction = defines.direction.north, position = {2, -2} }}
+          }
         },
+        fluid_boxes_off_when_no_fluid_recipe = true,
         perceived_performance = { minimum = 0.25, performance_to_activity_rate = 20.0, maximum = 5 },
-        off_when_no_fluid_recipe = true,
+       
         crafting_categories = {
             "heating", "heating-or-chemistry", "bending", "heating-or-assembling", "electronics-with-fluid","heating-or-metallurgy"
         },
@@ -133,7 +168,7 @@ data:extend {
     subgroup = "production-machine",
     order = "d[convector]",
     stack_size = 50,
-    scale = 0.5,
+    scale = .6,
 }, {
     type = "recipe",
     name = "prosephina-convector",

@@ -1,7 +1,7 @@
 {
   "name": "dea-dia-system",
-  "version": "0.8.0",
-  "title": "○🌐Dea Dia System (ALPHA)",
+  "version": "0.9.0",
+  "title": "○🌐Dea Dia System (BETA)",
   "author": "frontrider",
   "factorio_version": "2.0",
   "source": "https://github.com/Frontrider/dea-dia-system",
@@ -16,8 +16,12 @@
     "lex-aircraft",
     "SA-AtomicTank",
     "SpidertronPatrols",
+    "space-panels",
+    "Robocharger-Updated",
+    "? science-tab",
     "? Better_Starmap_Background",
     "? dredgeworks >= 0.7.4",
+    "? atan-nuclear-science",
     "! fixLargeElectricPole"
   ],
   "space_travel_required": true,

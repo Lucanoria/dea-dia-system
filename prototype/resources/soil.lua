@@ -10,6 +10,9 @@ local autoplace_control = {
     richness = true,
     type = "autoplace-control"
 }
+if mods["dredgeworks"] then
+    do_not_submerge[soil_name] = true
+end
 
 local soil_ore = {
     type = "resource",

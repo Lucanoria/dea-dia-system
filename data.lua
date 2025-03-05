@@ -20,13 +20,29 @@ data:extend {
         name = "hydroponics"
     },{
         type = "recipe-category",
-        name="heating-or-metallurgy"
+        name = "gas-mining"
     },
+    {
+    type = "recipe-category",
+    name = "heating-or-metallurgy"
+}, {
+    type = "recipe-category",
+    name = "air-collection"
+},{
+    type="recipe-category",
+    name= "forging-or-chemistry"
+},
     {
         type = "item-subgroup",
         name = "slimeweed",
         group = "bioprocessing",
         order = "dle[slimeweed]",
+    },
+    {
+        type = "item-subgroup",
+        name = "canning",
+        group = "bioprocessing",
+        order = "c[canning]",
     },
     {
         type = "item-subgroup",
@@ -45,6 +61,10 @@ data:extend {
         name = "gas-giant",
         group = "space",
         order = "z[gas-giant]"
+    },
+    {
+        type = "custom-event",
+        name = "dea-dia-on-landed",
     }
 }
 
@@ -58,6 +78,7 @@ require("prototype.tiles")
 require("prototype.recipes")
 require("prototype.resources.resources")
 require("prototype.technology")
+require("prototype.module")
 
 local gleba = data.raw.planet["gleba"]
 local vulcanus = data.raw.planet["vulcanus"]
@@ -70,7 +91,7 @@ if tech and tech.effects then
     for key, value in ipairs(tech.effects) do
         if value.type == "unlock-recipe" then
             if value.recipe == "space-solar-panel" then
-                table.remove(tech.effects,key)
+                table.remove(tech.effects, key)
             end
         end
     end

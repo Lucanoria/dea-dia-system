@@ -1,4 +1,33 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.10.0
+Date: 2025-03-05
+  Changes:
+    - adding proper factoriopedia entry for the gas mining platform
+    - hiding internal entities and recipes from factoriopedia
+    - fix station keeping module tech tree placement and localization
+    - updated fluidboxes on all machines.
+---------------------------------------------------------------------------------------------------
+Version: 0.9.0
+Date: 2025-03-04
+  Changes:
+    - added bioflux recipe
+    - localization fixes
+    - integrated solar wings, and robocharger mods for content
+    - added canning technology for bacteria, bioflux and slimeweed
+    - reduced the size of the floating platforms
+    - increased the richness of the gas resources
+    - slightly modified the fluorine plastic recipe to make it easier to craft
+    - added batteries made with lithium
+    - add thorium tech to fuel nuclear reactors without uranium mines
+    - added compatibility with the nuclear science mod
+    - rhenium alloy requires thorium
+    - gas mining platforms are now stable. There won't be any changes to how they are coded
+    - added a way to get water on dae dia
+    - reworked lemures world generation
+    - magnesium is now rhenium
+    - added stationkeeping modules
+    - added irradiated metalurgy technology to create tungsten on lemures to make foundations with.
+---------------------------------------------------------------------------------------------------
 Version: 0.8.0
 Date: 2025-02-18
   Changes:
@@ -48,7 +77,7 @@ Date: 2025-02-18
     - SA atomic tank is now a tech for lemures
     - moved armor equipment to lemures
     - thruster equipment added to dea dia
-    - lex's aircraft needs magnesium to craft.
+    - lex's aircraft needs rhenium to craft.
     - new science pack can be crafted on dae-dia.
     - fixed a bug caused by a cerys update.
 
@@ -63,7 +92,7 @@ Date: 2025-02-17
     - sorted slimeweed recipes
     - sorted lemures lava processing recipes (into vulcanus's group)
     - sorted soil processing recipes into their own group
-    - sorted magnesium as a raw material.
+    - sorted rhenium as a raw material.
     - greenhouse is now grouped with the biochamber and other agricultural machines.
     - depends on the bioprocessing tab to reduce clutter
     - alien frost artifact is moved to the bioprocessing tab

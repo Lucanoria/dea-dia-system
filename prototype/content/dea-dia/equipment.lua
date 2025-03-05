@@ -43,7 +43,7 @@ data:extend { {
         energy_required = 10,
         ingredients = {
             { type = "item", name = "processing-unit",       amount = 2 },
-            { type = "item", name = "magnesium-alloy-plate", amount = 20 },
+            { type = "item", name = "rhenium-alloy-plate", amount = 20 },
             { type = "item", name = "thruster",              amount = 1 },
         },
         subgroup = "equipment",

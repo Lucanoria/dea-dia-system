@@ -52,4 +52,4 @@ for index, tech in ipairs(increase_tech_3) do
     table.insert(cost,#cost+1,{"aerospace-science-pack",1})
 end
 
---update recipes to use magnesium.
+--update recipes to use rhenium.

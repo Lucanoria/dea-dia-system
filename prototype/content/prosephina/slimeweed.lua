@@ -55,6 +55,34 @@ data:extend { {
     base_color = { r = 0.8, g = 0.67, b = 63, a = 1 },
     flow_color = { r = .27, g = .31, b = .14, a = 1 },
     default_temperature = 15,
+}, {
+    default_import_location = "prosephina",
+    type = "item",
+    name = name .. "-bloom",
+    icon = "__dea-dia-system__/graphics/icon/" .. name .. "-bloom-1.png",
+    pictures = {
+        {
+            filename = "__dea-dia-system__/graphics/icon/" .. name .. "-bloom-1.png",
+            mipmap_count = 4,
+            scale = 0.5,
+            size = 64
+        },
+        {
+            filename = "__dea-dia-system__/graphics/icon/" .. name .. "-bloom-2.png",
+            mipmap_count = 4,
+            scale = 0.5,
+            size = 64
+        },
+        {
+            filename = "__dea-dia-system__/graphics/icon/" .. name .. "-bloom-3.png",
+            mipmap_count = 4,
+            scale = 0.5,
+            size = 64
+        }
+    },
+    stack_size = 10,
+    spoil_result = "spoilage",
+    spoil_ticks = 36000,
 },
     {
         default_import_location = "prosephina",
@@ -132,7 +160,7 @@ data:extend { {
         fuel_category = "chemical",
         fuel_top_speed_multiplier = 1,
         fuel_top_speed_multiplier_quality_bonus = 1.4,
-        fuel_value = "1MJ",
+        fuel_value = "10J",
     },
     {
         default_import_location = "prosephina",
@@ -173,6 +201,7 @@ data:extend { {
         subgroup = "slimeweed",
         allow_productivity = true,
         name = "slime-weed-processing",
+        enabled = false,
         icons =
         {
             {
@@ -198,6 +227,7 @@ data:extend { {
         allow_productivity = true,
         subgroup = "slimeweed",
         result_is_always_fresh = true,
+        enabled = false,
         icons =
         {
             {
@@ -216,7 +246,27 @@ data:extend { {
     {
         type = "recipe",
         category = "hydroponics",
+        name = "slime-weed-bloom",
+        allow_productivity = true,
+        auto_recycle = false,
+        subgroup = "slimeweed",
+        result_is_always_fresh = true,
+        enabled = false,
+        energy_required = 2,
+        ingredients = {
+            { type = "item",  name = name,        amount = 10 },
+            { type = "fluid", name = "water",     amount = 1000 },
+            { type = "fluid", name = "slimy-gel", amount = 10 }
+        },
+        results = {
+            { type = "item", name = name .. "-bloom", amount = 1 }
+        }
+    },
+    {
+        type = "recipe",
+        category = "hydroponics",
         name = "slimeweed-sulfur-filtering",
+        enabled = false,
         allow_productivity = true,
         subgroup = "slimeweed",
         icons =
@@ -243,6 +293,7 @@ data:extend { {
         type = "recipe",
         category = "organic-or-chemistry",
         subgroup = "slimeweed",
+        enabled = false,
         name = "gel-gas-processing",
         allow_productivity = true,
         icons =
@@ -254,10 +305,11 @@ data:extend { {
         },
         energy_required = 5,
         ingredients = {
-            { type = "fluid", name = "slimy-gel", amount = 20 }
+            { type = "fluid", name = "slimy-gel",      amount = 20 },
+            { type = "item",  name = name .. "-bloom", amount = 4 }
         },
         results = {
-            { type = "fluid", name = "petroleum-gas", amount = 10 },
+            { type = "fluid", name = "petroleum-gas", amount = 20 },
         }
     },
 
@@ -265,6 +317,7 @@ data:extend { {
         type = "recipe",
         category = "organic-or-chemistry",
         name = "gel-plastic",
+        enabled = false,
         subgroup = "slimeweed",
         allow_productivity = true,
         icons =
@@ -289,8 +342,16 @@ data:extend { {
         type = "recipe",
         category = "heating-or-chemistry",
         name = "gel-rubber",
+        enabled = false,
         subgroup = "slimeweed",
         allow_productivity = true,
+        surface_conditions = {
+            {
+                property = "solar-power",
+                max = 20,
+                min = 10
+            }
+        },
         icons =
         {
             {
@@ -312,6 +373,7 @@ data:extend { {
         type = "recipe",
         category = "organic-or-chemistry",
         subgroup = "slimeweed",
+        enabled = false,
         allow_productivity = true,
         name = "gel-rocket-fuel",
         icons =
@@ -330,8 +392,8 @@ data:extend { {
         },
         energy_required = 40,
         ingredients = {
-            { type = "fluid", name = "slimy-gel",     amount = 100 },
-            { type = "fluid", name = "petroleum-gas", amount = 10 },
+            { type = "fluid", name = "slimy-gel",      amount = 100 },
+            { type = "item",  name = name .. "-bloom", amount = 20 }
         },
         results = {
             { type = "item", name = "rocket-fuel", amount = 1 },
@@ -341,6 +403,7 @@ data:extend { {
         type = "recipe",
         category = "oil-processing",
         name = "gel-polymerization",
+        enabled = false,
         allow_productivity = true,
         subgroup = "slimeweed",
         icons =
@@ -363,6 +426,7 @@ data:extend { {
         category = "smelting",
         name = "fiber-carbon",
         allow_productivity = true,
+        enabled = false,
         subgroup = "slimeweed",
         icons =
         {
@@ -405,10 +469,18 @@ data:extend { {
                 recipe = "fiber-carbon"
             },
 
+            {
+                type   = "unlock-recipe",
+                recipe = "slime-weed-bloom"
+
+            },
+
         }
     },
     {
-        type = "technology", lignumis_skip_science_packs = true, name = "slimeweed-farming",
+        type = "technology",
+        lignumis_skip_science_packs = true,
+        name = "slimeweed-farming",
         subgroup = "slimeweed",
         research_trigger = {
             type = "craft-fluid",

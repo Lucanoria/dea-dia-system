@@ -27,6 +27,7 @@ data:extend {
     {
         type = "recipe",
         name = "natrocarbonatite-processing",
+        allow_productivity = true,
         category = "oil-processing",
         subgroup = "vulcanus-processes",
         energy_required = 4,
@@ -43,6 +44,8 @@ data:extend {
     } }, {
     type = "recipe",
     name = "lava-plate-processing",
+    allow_productivity = true,
+
     category = "heating-or-assembling",
     subgroup = "vulcanus-processes",
     energy_required = 2,
@@ -85,6 +88,8 @@ data:extend {
         category                            = "heating-or-assembling",
         name                                = "lava-cake",
         subgroup = "vulcanus-processes",
+        allow_productivity = true,
+
         enabled                             = false,
         preserve_products_in_machine_output = true,
         icon                                = "__dea-dia-system__/graphics/icon/lava-cake.png",
@@ -102,69 +107,5 @@ data:extend {
         {
             { type = "item", name = "lava-cake", amount = 1 },
         }
-    },
-    {
-        type                                = "recipe",
-        category                            = "heating-or-chemistry",
-        name                                = "magnesium-rocket-fuel",
-        enabled                             = false,
-        preserve_products_in_machine_output = true,
-        icons =
-        {
-            {
-                icon = "__dea-dia-system__/graphics/icon/magnesium-plate.png",
-            },
-            {
-                icon = data.raw["item"]["rocket-fuel"].icon,
-            }
-        },
-        surface_conditions                  = {
-            {
-                property = "pressure",
-                max = 300
-            }
-        },
-        energy_required                     = 1,
-        ingredients                         = {
-            { type = "item", name = "solid-fuel", amount = 10 },
-            { type = "item", name = "magnesium-dust", amount = 5 }
-        },
-        results                             =
-        {
-            { type = "item", name = "rocket-fuel", amount = 1 },
-        }
-    },{
-        type = "technology",lignumis_skip_science_packs=true,        name = "magnesium-rocket-fuel",
-        icons = { {
-          icon = "__dea-dia-system__/graphics/icon/magnesium-tech.png",
-          icon_size = 256
-        },
-          {
-            icon = "__base__/graphics/technology/rocket-fuel.png",
-            icon_size = 256
-          } },
-        effects =
-        {
-          {
-            type = "unlock-recipe",
-            recipe = "magnesium-rocket-fuel"
-          }
-        },
-        prerequisites = { "thermodynamic-science-pack" },
-        unit =
-        {
-          count = 2000,
-          ingredients =
-          {
-            { "automation-science-pack", 1 },
-            { "logistic-science-pack",   1 },
-            { "chemical-science-pack",   1 },
-            { "production-science-pack", 1 },
-            { "utility-science-pack",    1 },
-            { "space-science-pack",      1 },
-            { "thermodynamic-science-pack",      1 }
-          },
-          time = 60
-        },
-        upgrade = true
-      }, }
+    }
+ }

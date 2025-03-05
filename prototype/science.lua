@@ -47,7 +47,9 @@ local thermodynamic_flask = quality_glassware.request_flask(
 )
 
 local technology = {
-    type = "technology",lignumis_skip_science_packs=true,    name = science_pack.name,
+    type = "technology",
+    lignumis_skip_science_packs = true,
+    name = science_pack.name,
     research_trigger = {
         type = "craft-fluid",
         fluid = "slimy-gel",
@@ -69,13 +71,15 @@ local technology = {
 }
 
 local thermodynamic_technology = {
-    type = "technology",lignumis_skip_science_packs=true,    name = thermodynamic_science_pack.name,
+    type = "technology",
+    lignumis_skip_science_packs = true,
+    name = thermodynamic_science_pack.name,
     prerequisites = {
         "natrocarbonatite-processing", "fossil-processing"
     },
     research_trigger = {
         type = "craft-item",
-        item = "magnesium-plate",
+        item = "rhenium-plate",
         count = 20
     },
     effects = {
@@ -128,7 +132,7 @@ data:extend({
         ingredients = {
             { type = "item",  name = "lava-cake",       amount = 3 },
             { type = "fluid", name = "water",           amount = 100 },
-            { type = "item",  name = "magnesium-plate", amount = 2 }
+            { type = "item",  name = "rhenium-plate", amount = 2 }
         },
         results =
         {
@@ -139,7 +143,7 @@ data:extend({
 
 
 -- create a new science pack for the asteroid field.
-local science_pack = {
+local aerospace_science_pack = {
     type = "tool",
     name = "aerospace-science-pack",
     stack_size = 200,
@@ -150,23 +154,23 @@ local science_pack = {
 }
 
 local flask = quality_glassware.request_flask(
-    science_pack.name,
+    aerospace_science_pack.name,
     {
         { model = science_model,    variant = "liquid_pink" },
         { variant = "liquid_yellow" },
     }
 )
 
-science_pack.icons = {
+aerospace_science_pack.icons = {
     quality_glassware.item_graphics_for(flask)
 }
 data:extend {
-    science_pack, {
+    aerospace_science_pack, {
     type = "recipe",
     name = "aerospace-science-pack",
     enabled = false,
     energy_required = 11,
-    category="crafting-with-fluid",
+    category = "crafting-with-fluid",
     surface_conditions = {
         {
             property = "magnetic-field",
@@ -178,7 +182,7 @@ data:extend {
     },
     ingredients = {
         { type = "fluid", name = "ammonia",               amount = 100 },
-        { type = "item",  name = "magnesium-alloy-plate", amount = 2 },
+        { type = "item",  name = "rhenium-alloy-plate", amount = 2 },
         { type = "item",  name = "electric-engine-unit",  amount = 3 },
         { type = "item",  name = "low-density-structure", amount = 1 },
     },
@@ -193,3 +197,19 @@ local lab_inputs = data.raw.lab.lab.inputs
 lab_inputs[#lab_inputs + 1] = "insulation-science-pack"
 lab_inputs[#lab_inputs + 1] = "thermodynamic-science-pack"
 lab_inputs[#lab_inputs + 1] = "aerospace-science-pack"
+
+
+-- move to our own row in the science tab if we have the option.
+if mods["science-tab"] then
+    data:extend {
+        {
+            type = "item-subgroup",
+            name = "dea-dia-science-pack",
+            group = "science",
+            order = "d[dea-dia]"
+        }
+    }
+    science_pack.subgroup = "dea-dia-science-pack"
+    thermodynamic_science_pack.subgroup = "dea-dia-science-pack"
+    aerospace_science_pack.subgroup = "dea-dia-science-pack"
+end

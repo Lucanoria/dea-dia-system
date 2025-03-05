@@ -9,14 +9,12 @@ function MapGen_lemures()
     map_gen_setting.terrain_segmentation = "very-high"
 
     map_gen_setting.property_expression_names = {
-        elevation = "vulcanus_elevation",
+        elevation = "nauvis_elevation",
         temperature = "vulcanus_temperature",
-        moisture = "vulcanus_moisture",
-        aux = "vulcanus_aux",
+        moisture = "nauvis_moisture",
+        aux = "nauvis_aux",
         cliffiness = "cliffiness_basic",
         cliff_elevation = "cliff_elevation_from_elevation",
-        ["entity:crude-oil:probability"] = "crude_oil_probability",
-        ["entity:crude-oil:richness"] = "crude_oil_richness",
         ["entity:sulfuric-acid-geyser:probability"] = "vulcanus_sulfuric_acid_geyser_probability",
         ["entity:sulfuric-acid-geyser:richness"] = "vulcanus_sulfuric_acid_geyser_richness",
     }
@@ -27,7 +25,7 @@ function MapGen_lemures()
         ["gleba_stone"] = {},
         ["natrocarbonatite"] = {},
         ["frost_enemy_base"] = { frequency = 1, size = 1, richness = 1 },
-        ["water"] = { frequency = 3, size = 10, richness = 8 }
+        ["water"] = { frequency = 1, size = 2, richness = 3 }
     }
 
     map_gen_setting.autoplace_settings["tile"] = {
@@ -59,6 +57,7 @@ function MapGen_lemures()
             ["crater-large"] = {},
         }
     }
+    
     map_gen_setting.cliff_settings = {
         name = "cliff-nauvis",
         cliff_elevation_interval = 10,
@@ -96,6 +95,7 @@ local lemures =
     tier = -1,
     pollutant_type = "pollution",
     solar_power_in_space = 10,
+    subgroup="satellites",
     icon = "__dea-dia-system__/graphics/icon/planet-lemures.png",
     starmap_icon = "__dea-dia-system__/graphics/planet-lemures.png",
     platform_procession_set = table.deepcopy(nauvis.platform_procession_set),
